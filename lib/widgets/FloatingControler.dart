@@ -1,8 +1,16 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:musik/screens/NowPlaying.dart';
 
-class FloatingController extends StatelessWidget {
+class FloatingController extends StatefulWidget {
   const FloatingController({super.key});
+
+  @override
+  State<FloatingController> createState() => _FloatingControllerState();
+}
+
+class _FloatingControllerState extends State<FloatingController> {
+  final player = AudioPlayer();
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +60,10 @@ class FloatingController extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        player.play(AssetSource(
+                            "The Weeknd - After Hours (Audio).mp3"));
+                      },
                       icon: Icon(
                         Icons.play_arrow_rounded,
                         size: 35,

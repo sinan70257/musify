@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:musik/screens/SplashScreen.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 void main(List<String> args) {
   runApp(MyApp());
