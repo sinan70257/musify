@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:musik/widgets/NowPlayingClip.dart';
 
 class NowPlaying extends StatelessWidget {
@@ -21,10 +19,10 @@ class NowPlaying extends StatelessWidget {
               fontSize: 25),
         ),
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.pink,
       body: Center(
         child: Column(
-          children: [
+          children: const [
             SizedBox(
               height: 50,
             ),

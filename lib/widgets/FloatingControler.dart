@@ -1,4 +1,4 @@
-import 'package:audioplayers/audioplayers.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:musik/screens/NowPlaying.dart';
 
@@ -9,8 +9,23 @@ class FloatingController extends StatefulWidget {
   State<FloatingController> createState() => _FloatingControllerState();
 }
 
-class _FloatingControllerState extends State<FloatingController> {
-  final player = AudioPlayer();
+class _FloatingControllerState extends State<FloatingController>
+    with SingleTickerProviderStateMixin {
+  // AssetsAudioPlayer player = AssetsAudioPlayer();
+  // late AnimationController _animationController;
+
+  // bool isPlaying = false;
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   player.open(
+  //       Audio(
+  //           "assets/audio/X2Download.app - The Weeknd - Save Your Tears (Official Music Video) (128 kbps).mp3"),
+  //       autoStart: false,
+  //       showNotification: true);
+  //   _animationController =
+  //       AnimationController(vsync: this, duration: Duration(milliseconds: 450));
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +49,7 @@ class _FloatingControllerState extends State<FloatingController> {
             ),
             title: Text(
               "Save Your Tears",
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                   fontFamily: "Inter",
                   fontWeight: FontWeight.w900,
@@ -48,7 +64,7 @@ class _FloatingControllerState extends State<FloatingController> {
             ),
             trailing: Container(
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -59,16 +75,17 @@ class _FloatingControllerState extends State<FloatingController> {
                       color: Color.fromARGB(255, 255, 255, 255),
                     ),
                   ),
-                  IconButton(
-                      onPressed: () {
-                        player.play(AssetSource(
-                            "The Weeknd - After Hours (Audio).mp3"));
-                      },
-                      icon: Icon(
-                        Icons.play_arrow_rounded,
-                        size: 35,
-                        color: Color.fromARGB(255, 255, 255, 255),
-                      )),
+                  // Container(
+                  //   child: IconButton(
+                  //       // splashColor: Colors.lightGreenAccent,
+                  //       iconSize: 40,
+                  //       onPressed: () => _handleOnPress(),
+                  //       icon: AnimatedIcon(
+                  //           color: Colors.white,
+                  //           // size: 50,
+                  //           icon: AnimatedIcons.play_pause,
+                  //           progress: _animationController)),
+                  // ),
                   IconButton(
                     onPressed: () {},
                     icon: Icon(
@@ -84,4 +101,17 @@ class _FloatingControllerState extends State<FloatingController> {
       ),
     );
   }
+
+  // void _handleOnPress() {
+  //   setState(() {
+  //     isPlaying = !isPlaying;
+  //     if (isPlaying) {
+  //       _animationController.forward();
+  //       player.play();
+  //     } else {
+  //       _animationController.reverse();
+  //       player.pause();
+  //     }
+  //   });
+  // }
 }

@@ -1,8 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 
-class NowPlayingClip extends StatelessWidget {
+class NowPlayingClip extends StatefulWidget {
   const NowPlayingClip({super.key});
+
+  @override
+  State<NowPlayingClip> createState() => _NowPlayingClipState();
+}
+
+class _NowPlayingClipState extends State<NowPlayingClip>
+    with SingleTickerProviderStateMixin {
+  AssetsAudioPlayer player = AssetsAudioPlayer();
+  late AnimationController _animationController;
+
+  bool isPlaying = false;
+  @override
+  void initState() {
+    super.initState();
+    player.open(Audio("assets/audio/The Weeknd - After Hours (Audio).mp3"),
+        autoStart: false, showNotification: true);
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 450));
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    // player.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,73 +97,109 @@ class NowPlayingClip extends StatelessWidget {
         SizedBox(
           height: 10,
         ),
-        SizedBox(
-          width: 350,
-          child: ProgressBar(
-            progressBarColor: Colors.white,
-            baseBarColor: Colors.white.withOpacity(0.24),
-            bufferedBarColor: Colors.white.withOpacity(0.24),
-            thumbColor: Colors.white,
-            progress: Duration(milliseconds: 1000),
-            // buffered: Duration(milliseconds: 2000),
-            // timeLabelLocation: TimeLabelLocation.sides,
-            total: Duration(milliseconds: 5000),
-            barHeight: 3,
-            thumbRadius: 6,
-            onSeek: (duration) {
-              // print('User selected a new time: $duration');
-            },
-          ),
+        player.builderRealtimePlayingInfos(
+          builder: (context, RealtimePlayingInfos? infos) {
+            if (infos == null) {
+              return SizedBox();
+            }
+            return Column(
+              children: [
+                SizedBox(
+                  width: 360,
+                  child: ProgressBar(
+                    baseBarColor: Colors.grey,
+                    progressBarColor: Colors.white,
+                    thumbColor: Colors.white,
+                    thumbRadius: 5,
+                    // barHeight: 1,
+                    timeLabelPadding: 5,
+                    // timeLabelLocation: TimeLabelLocation.sides,
+                    progress: infos.currentPosition,
+                    total: infos.duration,
+                    onSeek: (duration) {
+                      // print('User selected a new time: $duration');
+                      player.seek(duration);
+                    },
+                  ),
+                ),
+              ],
+            );
+          },
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
               width: 40,
             ),
             IconButton(
+                iconSize: 40,
                 onPressed: () {},
                 icon: Icon(
                   Icons.skip_previous_rounded,
                   color: Colors.white,
-                  size: 40,
                 )),
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  player.seekBy(const Duration(seconds: -10));
+                },
                 icon: Icon(
-                  Icons.rotate_left,
+                  Icons.fast_rewind_rounded,
                   color: Colors.white,
                 )),
             Container(
-              height: 80,
-              width: 80,
+              height: 70,
+              width: 70,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(101),
+                  color: Color.fromARGB(255, 255, 255, 255)),
               child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.play_circle_filled,
-                    color: Colors.white,
-                    size: 70,
-                  )),
+                // splashColor: Colors.lightGreenAccent,
+                iconSize: 70,
+                onPressed: () => _handleOnPress(),
+                icon: AnimatedIcon(
+                    color: Color.fromARGB(255, 0, 0, 0),
+                    size: 50,
+                    icon: AnimatedIcons.play_pause,
+                    progress: _animationController),
+              ),
             ),
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  player.seekBy(const Duration(seconds: 10));
+                },
                 icon: Icon(
-                  Icons.rotate_right,
+                  Icons.fast_forward_rounded,
                   color: Colors.white,
                 )),
             IconButton(
+                iconSize: 40,
                 onPressed: () {},
                 icon: Icon(
                   Icons.skip_next_rounded,
                   color: Colors.white,
-                  size: 40,
                 )),
             SizedBox(
               width: 40,
-            )
+            ),
           ],
-        )
+        ),
       ],
     );
+  }
+
+  void _handleOnPress() {
+    setState(() {
+      isPlaying = !isPlaying;
+
+      if (isPlaying) {
+        _animationController.forward();
+        player.play();
+      } else {
+        _animationController.reverse();
+        player.pause();
+      }
+    });
   }
 }
