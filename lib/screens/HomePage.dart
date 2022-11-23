@@ -3,6 +3,7 @@ import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:musik/widgets/Cards.dart';
 import 'package:musik/widgets/SearchBar.dart';
 import 'package:musik/widgets/TitleWidget.dart';
@@ -79,7 +80,7 @@ class _HomePageState extends State<HomePage>
                 // Navigator.of(context).push(
                 //     MaterialPageRoute(builder: ((context) => HomePage())));
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_circle_left_outlined,
                 color: Colors.white,
                 size: 40,
@@ -100,9 +101,9 @@ class _HomePageState extends State<HomePage>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              SizedBox(
-                height: 50,
-              ),
+              // const SizedBox(
+              //   height: 50,
+              // ),
               // NowPlayingClip()
               Column(
                 children: [
@@ -114,7 +115,7 @@ class _HomePageState extends State<HomePage>
                   Container(
                     width: 300,
                     height: 300,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         // shape: BoxShape.rectangle,
                         // border: Border.all(),
                         // borderRadius: BorderRadius.circular(5),
@@ -128,7 +129,7 @@ class _HomePageState extends State<HomePage>
                   Text(
                     currentSongTitle,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.white,
                         fontSize: 30,
                         fontFamily: "Inter",
@@ -137,13 +138,13 @@ class _HomePageState extends State<HomePage>
                   Text(
                     currrentArtist,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.grey,
                       fontSize: 15,
                       fontFamily: "Inter",
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -151,7 +152,7 @@ class _HomePageState extends State<HomePage>
                     children: [
                       IconButton(
                           onPressed: () {},
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.playlist_add,
                             color: Colors.white,
                             size: 30,
@@ -306,6 +307,7 @@ class _HomePageState extends State<HomePage>
         ),
       );
     } else
+      // ignore: curly_braces_in_flow_control_structures
       return Scaffold(
         backgroundColor: Colors.black,
         appBar: PreferredSize(
@@ -321,7 +323,7 @@ class _HomePageState extends State<HomePage>
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(left: 8, right: 8),
             child: Column(
               children: [
                 Cards(),
@@ -334,7 +336,9 @@ class _HomePageState extends State<HomePage>
                     builder: (context, item) {
                       if (item.data == null) {
                         return const Center(
-                          child: CircularProgressIndicator(),
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
                         );
                       }
                       if (item.data!.isEmpty) {
@@ -356,8 +360,8 @@ class _HomePageState extends State<HomePage>
                             padding: const EdgeInsets.all(4),
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 37, 37, 37),
-                                  borderRadius: BorderRadius.circular(5)),
+                                  color: Color.fromARGB(255, 75, 75, 75),
+                                  borderRadius: BorderRadius.circular(10)),
                               child: ListTile(
                                 onTap: () async {
                                   isPlaying = true;
@@ -390,15 +394,15 @@ class _HomePageState extends State<HomePage>
                                 trailing: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Padding(
-                                        padding: EdgeInsets.only(right: 10),
-                                        child: IconButton(
-                                            onPressed: () {},
-                                            icon: Icon(
-                                              Icons.playlist_add,
-                                              color: Colors.white,
-                                              size: 30,
-                                            ))),
+                                    // Padding(
+                                    //     padding: EdgeInsets.only(right: 10),
+                                    //     child: IconButton(
+                                    //         onPressed: () {},
+                                    //         icon: Icon(
+                                    //           Icons.playlist_add,
+                                    //           color: Colors.white,
+                                    //           size: 30,
+                                    //         ))),
                                     IconButton(
                                         icon: toggle
                                             ? Icon(
@@ -495,7 +499,17 @@ class _HomePageState extends State<HomePage>
   ConcatenatingAudioSource createPlaylist(List<SongModel> songs) {
     List<AudioSource> scources = [];
     for (var song in songs) {
-      scources.add(AudioSource.uri(Uri.parse(song.uri!)));
+      scources.add(AudioSource.uri(
+        Uri.parse(song.uri!),
+        tag: MediaItem(
+          // Specify a unique ID for each media item:
+          id: "${songs[currentIndex].id}",
+          // Metadata to display in the notification:
+          album: "${songs[currentIndex].album}",
+          title: songs[currentIndex].displayNameWOExt,
+          artUri: Uri.parse('https://example.com/albumart.jpg'),
+        ),
+      ));
     }
     return ConcatenatingAudioSource(children: scources);
   }
