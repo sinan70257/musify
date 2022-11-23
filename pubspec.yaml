@@ -41,6 +41,11 @@ dependencies:
   flutter_switch: ^0.3.2
   audio_video_progress_bar: ^0.11.0
   assets_audio_player: ^3.0.5
+  on_audio_query: ^2.6.1
+  audioplayers: ^1.1.1
+  just_audio: ^0.9.30
+  just_audio_background: ^0.0.1-beta.8
+  rxdart: ^0.27.3
 
 dev_dependencies:
   flutter_test:

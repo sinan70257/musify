@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:musik/screens/BottomNavbar.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -13,6 +15,7 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
+
     Future.delayed(const Duration(seconds: 5)).then((value) {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: ((ctx) => BottomNavbar())));

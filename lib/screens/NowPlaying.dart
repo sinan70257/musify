@@ -19,7 +19,7 @@ class NowPlaying extends StatelessWidget {
               fontSize: 25),
         ),
       ),
-      backgroundColor: Colors.pink,
+      backgroundColor: Colors.black,
       body: Center(
         child: Column(
           children: const [

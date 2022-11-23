@@ -35,59 +35,60 @@ class _AllSongsState extends State<AllSongs> {
               return Column(
                 children: [
                   ListTile(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: ((context) => NowPlaying())));
-                      },
-                      leading: ClipRRect(
-                        borderRadius: BorderRadius.circular(5),
-                        child: Image.asset(
-                            'assets/images/The_Weeknd_-_After_Hours.png'),
-                      ),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Padding(
-                              padding: EdgeInsets.only(right: 10),
-                              child: IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Icons.playlist_add,
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: ((context) => NowPlaying())));
+                    },
+                    leading: ClipRRect(
+                      borderRadius: BorderRadius.circular(5),
+                      child: Image.asset(
+                          'assets/images/The_Weeknd_-_After_Hours.png'),
+                    ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Padding(
+                            padding: EdgeInsets.only(right: 10),
+                            child: IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.playlist_add,
+                                  color: Colors.white,
+                                  size: 30,
+                                ))),
+                        IconButton(
+                            icon: toggle
+                                ? Icon(
+                                    Icons.favorite_border,
                                     color: Colors.white,
-                                    size: 30,
-                                  ))),
-                          IconButton(
-                              icon: toggle
-                                  ? Icon(
-                                      Icons.favorite_border,
-                                      color: Colors.white,
-                                    )
-                                  : Icon(
-                                      Icons.favorite,
-                                      color: Colors.white,
-                                    ),
-                              onPressed: () {
-                                setState(() {
-                                  // Here we changing the icon.
-                                  toggle = !toggle;
-                                });
-                              }),
-                        ],
+                                  )
+                                : Icon(
+                                    Icons.favorite,
+                                    color: Colors.white,
+                                  ),
+                            onPressed: () {
+                              setState(() {
+                                // Here we changing the icon.
+                                toggle = !toggle;
+                              });
+                            }),
+                      ],
+                    ),
+                    subtitle: Text(
+                      "The Weeknd",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: "Inter",
                       ),
-                      subtitle: Text(
-                        "The Weeknd",
-                        style: TextStyle(
+                    ),
+                    title: Text(
+                      "Save Your Tears",
+                      style: TextStyle(
                           color: Colors.white,
                           fontFamily: "Inter",
-                        ),
-                      ),
-                      title: Text(
-                        "Save Your Tears",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: "Inter",
-                            fontWeight: FontWeight.bold),
-                      )),
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
                   SizedBox(
                     height: 15,
                   )

@@ -107,7 +107,7 @@ class _NowPlayingClipState extends State<NowPlayingClip>
                 SizedBox(
                   width: 360,
                   child: ProgressBar(
-                    baseBarColor: Colors.grey,
+                    baseBarColor: Colors.white.withOpacity(0.5),
                     progressBarColor: Colors.white,
                     thumbColor: Colors.white,
                     thumbRadius: 5,
@@ -116,6 +116,7 @@ class _NowPlayingClipState extends State<NowPlayingClip>
                     // timeLabelLocation: TimeLabelLocation.sides,
                     progress: infos.currentPosition,
                     total: infos.duration,
+                    timeLabelTextStyle: TextStyle(color: Colors.white),
                     onSeek: (duration) {
                       // print('User selected a new time: $duration');
                       player.seek(duration);
