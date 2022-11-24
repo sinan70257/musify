@@ -498,6 +498,7 @@ class _HomePageState extends State<HomePage>
 
   ConcatenatingAudioSource createPlaylist(List<SongModel> songs) {
     List<AudioSource> scources = [];
+
     for (var song in songs) {
       scources.add(AudioSource.uri(
         Uri.parse(song.uri!),
@@ -507,7 +508,7 @@ class _HomePageState extends State<HomePage>
           // Metadata to display in the notification:
           album: "${songs[currentIndex].album}",
           title: songs[currentIndex].displayNameWOExt,
-          artUri: Uri.parse('https://example.com/albumart.jpg'),
+          // artUri: Uri.parse(''),
         ),
       ));
     }
