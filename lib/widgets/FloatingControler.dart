@@ -32,10 +32,10 @@ class _FloatingControllerState extends State<FloatingController> {
   Widget build(BuildContext context) {
     return player.builderCurrent(builder: (context, playing) {
       return Container(
-        color: Colors.grey,
+        color: Color.fromARGB(255, 50, 50, 50),
         height: 80,
         // width: MediaQuery.of(context).size.width,
-        width: 360,
+        width: double.infinity,
         child: ListTile(
           onTap: (() {
             Navigator.push(context,
@@ -49,15 +49,16 @@ class _FloatingControllerState extends State<FloatingController> {
           leading: QueryArtworkWidget(
             id: int.parse(playing.audio.audio.metas.id!),
             type: ArtworkType.AUDIO,
-            artworkWidth: 50,
-            artworkHeight: 50,
+            artworkBorder: BorderRadius.circular(5),
+            artworkWidth: 60,
+            artworkHeight: 60,
             artworkFit: BoxFit.fill,
             nullArtworkWidget: ClipRect(
               child: Image.asset(
                 "assets/images/500x500.jpg",
                 fit: BoxFit.cover,
-                width: 50,
-                height: 50,
+                width: 60,
+                height: 60,
               ),
             ),
           ),
@@ -71,6 +72,7 @@ class _FloatingControllerState extends State<FloatingController> {
           ),
           subtitle: Text(
             player.getCurrentAudioArtist,
+            overflow: TextOverflow.ellipsis,
             style: TextStyle(
                 fontFamily: "Inter",
                 fontWeight: FontWeight.bold,
@@ -130,6 +132,7 @@ class _FloatingControllerState extends State<FloatingController> {
                     ),
                   ),
                   IconButton(
+                    iconSize: 40,
                     onPressed: () {
                       player.playOrPause();
                     },

@@ -14,13 +14,9 @@ class allSongsScreen extends StatefulWidget {
 
 class _allSongsScreenState extends State<allSongsScreen> {
   late bool isplaying;
-
   late bool playerVisibility;
-
   final box = SongBox.getInstance();
-
   List<Audio> convertAudios = [];
-
   final AssetsAudioPlayer _audioPlayer = AssetsAudioPlayer.withId('0');
 
   @override
