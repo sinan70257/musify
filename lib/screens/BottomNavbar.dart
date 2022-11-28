@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:musik/screens/HomePage.dart';
-import 'package:musik/screens/Playlists.dart';
-import 'package:musik/screens/Settings.dart';
+import 'HomePage.dart';
+import 'Playlists.dart';
+import 'Settings.dart';
 
 // ignore: must_be_immutable
 class BottomNavbar extends StatefulWidget {

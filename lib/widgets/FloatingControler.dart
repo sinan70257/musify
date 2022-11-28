@@ -1,6 +1,7 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
-import 'package:musik/screens/NowPlaying.dart';
+import 'package:musik/screens/nowPlaying2.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 
 class FloatingController extends StatefulWidget {
   const FloatingController({super.key});
@@ -9,8 +10,8 @@ class FloatingController extends StatefulWidget {
   State<FloatingController> createState() => _FloatingControllerState();
 }
 
-class _FloatingControllerState extends State<FloatingController>
-    with SingleTickerProviderStateMixin {
+class _FloatingControllerState extends State<FloatingController> {
+  AssetsAudioPlayer player = AssetsAudioPlayer.withId('0');
   // AssetsAudioPlayer player = AssetsAudioPlayer();
   // late AnimationController _animationController;
 
@@ -29,77 +30,132 @@ class _FloatingControllerState extends State<FloatingController>
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: ((context) => NowPlaying())));
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          color: Color.fromARGB(255, 96, 96, 96),
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-        ),
+    return player.builderCurrent(builder: (context, playing) {
+      return Container(
+        color: Colors.grey,
         height: 80,
-        width: 392,
-        child: Center(
-          child: ListTile(
-            leading: ClipRRect(
-              child: Image.asset("assets/images/The_Weeknd_-_After_Hours.png"),
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            ),
-            title: Text(
-              "Save Your Tears",
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                  fontFamily: "Inter",
-                  fontWeight: FontWeight.w900,
-                  color: Colors.white),
-            ),
-            subtitle: Text(
-              "The Weeknd",
-              style: TextStyle(
-                  fontFamily: "Inter",
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 180, 179, 179)),
-            ),
-            trailing: Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.skip_previous,
-                      color: Color.fromARGB(255, 255, 255, 255),
-                    ),
-                  ),
-                  // Container(
-                  //   child: IconButton(
-                  //       // splashColor: Colors.lightGreenAccent,
-                  //       iconSize: 40,
-                  //       onPressed: () => _handleOnPress(),
-                  //       icon: AnimatedIcon(
-                  //           color: Colors.white,
-                  //           // size: 50,
-                  //           icon: AnimatedIcons.play_pause,
-                  //           progress: _animationController)),
-                  // ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.skip_next,
-                      color: Color.fromARGB(255, 255, 255, 255),
-                    ),
-                  ),
-                ],
+        // width: MediaQuery.of(context).size.width,
+        width: 360,
+        child: ListTile(
+          onTap: (() {
+            Navigator.push(context,
+                MaterialPageRoute(builder: ((context) => NowPlaying2())));
+          }),
+          // leading: ClipRRect(
+          //   child: Image.asset("assets/images/The_Weeknd_-_After_Hours.png"),
+          //   borderRadius: BorderRadius.all(Radius.circular(10)),
+          // ),
+          contentPadding: const EdgeInsets.fromLTRB(5, 2, 5, 10),
+          leading: QueryArtworkWidget(
+            id: int.parse(playing.audio.audio.metas.id!),
+            type: ArtworkType.AUDIO,
+            artworkWidth: 50,
+            artworkHeight: 50,
+            artworkFit: BoxFit.fill,
+            nullArtworkWidget: ClipRect(
+              child: Image.asset(
+                "assets/images/500x500.jpg",
+                fit: BoxFit.cover,
+                width: 50,
+                height: 50,
               ),
             ),
           ),
+          title: Text(
+            player.getCurrentAudioTitle,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+                fontFamily: "Inter",
+                fontWeight: FontWeight.w900,
+                color: Colors.white),
+          ),
+          subtitle: Text(
+            player.getCurrentAudioArtist,
+            style: TextStyle(
+                fontFamily: "Inter",
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 180, 179, 179)),
+          ),
+          // trailing: Container(
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //     crossAxisAlignment: CrossAxisAlignment.center,
+          //     mainAxisSize: MainAxisSize.min,
+          //     children: [
+          //       IconButton(
+          //         onPressed: () {},
+          //         icon: Icon(
+          //           Icons.skip_previous,
+          //           color: Color.fromARGB(255, 255, 255, 255),
+          //         ),
+          //       ),
+          //       // Container(
+          //       //   child: IconButton(
+          //       //       // splashColor: Colors.lightGreenAccent,
+          //       //       iconSize: 40,
+          //       //       onPressed: () => _handleOnPress(),
+          //       //       icon: AnimatedIcon(
+          //       //           color: Colors.white,
+          //       //           // size: 50,
+          //       //           icon: AnimatedIcons.play_pause,
+          //       //           progress: _animationController)),
+          //       // ),
+          //       IconButton(
+          //         onPressed: () {},
+          //         icon: Icon(
+          //           Icons.skip_next,
+          //           color: Color.fromARGB(255, 255, 255, 255),
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          trailing: PlayerBuilder.isPlaying(
+            player: player,
+            builder: (context, isPlaying) {
+              return Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    onPressed: () async {
+                      await player.previous();
+                      setState(() {});
+                      if (isPlaying == false) {
+                        player.pause();
+                      }
+                    },
+                    icon: Icon(
+                      Icons.skip_previous,
+                      color: Colors.white,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      player.playOrPause();
+                    },
+                    icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
+                    color: Colors.white,
+                  ),
+                  IconButton(
+                    onPressed: () async {
+                      await player.next();
+                      setState(() {});
+                      if (isPlaying == false) {
+                        player.pause();
+                      }
+                    },
+                    icon: Icon(
+                      Icons.skip_next,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   // void _handleOnPress() {

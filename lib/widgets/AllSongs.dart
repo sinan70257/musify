@@ -1,101 +1,117 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
-import 'package:musik/screens/NowPlaying.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:musik/model/songModel.dart';
+import 'package:musik/screens/nowPlaying2.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 
-class AllSongs extends StatefulWidget {
-  const AllSongs({super.key});
+class allSongsScreen extends StatefulWidget {
+  allSongsScreen({super.key});
 
   @override
-  State<AllSongs> createState() => _AllSongsState();
+  State<allSongsScreen> createState() => _allSongsScreenState();
 }
 
-class _AllSongsState extends State<AllSongs> {
-  bool toggle = false;
+class _allSongsScreenState extends State<allSongsScreen> {
+  late bool isplaying;
+
+  late bool playerVisibility;
+
+  final box = SongBox.getInstance();
+
+  List<Audio> convertAudios = [];
+
+  final AssetsAudioPlayer _audioPlayer = AssetsAudioPlayer.withId('0');
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    List<Songs> dbsongs = box.values.toList();
+    for (var item in dbsongs) {
+      convertAudios.add(Audio.file(item.songurl!,
+          metas: Metas(
+              title: item.songname,
+              artist: item.artist,
+              id: item.id.toString())));
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(
-          height: 10,
-        ),
-        const Text(
-          "All Songs",
-          style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontFamily: "Inter",
-              fontWeight: FontWeight.w900),
-        ),
-        ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: 50,
-            padding: EdgeInsets.only(top: 10),
-            itemBuilder: (BuildContext context, int index) {
-              return Column(
-                children: [
-                  ListTile(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: ((context) => NowPlaying())));
-                    },
-                    leading: ClipRRect(
-                      borderRadius: BorderRadius.circular(5),
-                      child: Image.asset(
-                          'assets/images/The_Weeknd_-_After_Hours.png'),
-                    ),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Padding(
-                            padding: EdgeInsets.only(right: 10),
-                            child: IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.playlist_add,
-                                  color: Colors.white,
-                                  size: 30,
-                                ))),
-                        IconButton(
-                            icon: toggle
-                                ? Icon(
-                                    Icons.favorite_border,
-                                    color: Colors.white,
-                                  )
-                                : Icon(
-                                    Icons.favorite,
-                                    color: Colors.white,
-                                  ),
-                            onPressed: () {
-                              setState(() {
-                                // Here we changing the icon.
-                                toggle = !toggle;
-                              });
-                            }),
-                      ],
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+
+    return ValueListenableBuilder<Box<Songs>>(
+        valueListenable: box.listenable(),
+        builder: ((context, Box<Songs> allsongbox, child) {
+          List<Songs> allDbdongs = allsongbox.values.toList();
+          if (allDbdongs.isEmpty) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (allDbdongs == null) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: allDbdongs.length,
+              itemBuilder: (context, index) {
+                Songs songs = allDbdongs[index];
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 5, 0, 2),
+                  child: ListTile(
+                    onTap: (() {
+                      _audioPlayer.open(
+                          Playlist(audios: convertAudios, startIndex: index),
+                          showNotification: true,
+                          headPhoneStrategy:
+                              HeadPhoneStrategy.pauseOnUnplugPlayOnPlug,
+                          loopMode: LoopMode.playlist);
+                      setState(() {});
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => NowPlaying2())));
+                    }),
+                    leading: QueryArtworkWidget(
+                      id: songs.id!,
+                      type: ArtworkType.AUDIO,
+                      artworkFit: BoxFit.cover,
+                      artworkQuality: FilterQuality.high,
+                      size: 2000,
+                      quality: 100,
+                      artworkBorder: BorderRadius.circular(10),
+                      nullArtworkWidget: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        child: Image.asset(
+                          'assets/images/The_Weeknd_-_After_Hours.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                     subtitle: Text(
-                      "The Weeknd",
-                      style: TextStyle(
+                      songs.songname!,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontFamily: "Inter",
                       ),
                     ),
                     title: Text(
-                      "Save Your Tears",
-                      style: TextStyle(
+                      songs.artist!,
+                      style: const TextStyle(
                           color: Colors.white,
                           fontFamily: "Inter",
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  SizedBox(
-                    height: 15,
-                  )
-                ],
-              );
-            }),
-      ],
-    );
+                );
+              });
+        }));
   }
 }
