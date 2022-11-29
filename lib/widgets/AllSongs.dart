@@ -1,6 +1,7 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:musik/favourite/addtofavourite.dart';
 import 'package:musik/model/songModel.dart';
 import 'package:musik/screens/nowPlaying2.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -57,6 +58,7 @@ class _allSongsScreenState extends State<allSongsScreen> {
               shrinkWrap: true,
               itemCount: allDbdongs.length,
               itemBuilder: (context, index) {
+                bool toggle = false;
                 Songs songs = allDbdongs[index];
                 return Padding(
                   padding: const EdgeInsets.fromLTRB(0, 5, 0, 2),
@@ -83,7 +85,8 @@ class _allSongsScreenState extends State<allSongsScreen> {
                       quality: 100,
                       artworkBorder: BorderRadius.circular(10),
                       nullArtworkWidget: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
                         child: Image.asset(
                           'assets/images/The_Weeknd_-_After_Hours.png',
                           fit: BoxFit.cover,
@@ -104,6 +107,70 @@ class _allSongsScreenState extends State<allSongsScreen> {
                           color: Colors.white,
                           fontFamily: "Inter",
                           fontWeight: FontWeight.bold),
+                    ),
+                    // trailing: Row(
+                    //   mainAxisSize: MainAxisSize.min,
+                    //   children: [
+                    //     Padding(
+                    //         padding: EdgeInsets.only(right: 10),
+                    //         child: IconButton(
+                    //             onPressed: () {},
+                    //             icon: Icon(
+                    //               Icons.playlist_add,
+                    //               color: Colors.white,
+                    //               size: 30,
+                    //             ))),
+                    //     IconButton(
+                    //         icon: toggle
+                    //             ? Icon(
+                    //                 Icons.favorite_border,
+                    //                 color: Colors.white,
+                    //               )
+                    //             : Icon(
+                    //                 Icons.favorite,
+                    //                 color: Colors.white,
+                    //               ),
+                    //         onPressed: () {
+                    //           setState(() {
+                    //             // Here we changing the icon.
+                    //             toggle = !toggle;
+                    //           });
+                    //         }),
+                    //   ],
+                    // ),
+                    trailing: IconButton(
+                      onPressed: (() {
+                        showModalBottomSheet(
+                          backgroundColor: Colors.black,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(20),
+                            ),
+                          ),
+                          context: context,
+                          builder: ((context) {
+                            return SizedBox(
+                              height: height * 0.13,
+                              child: Column(
+                                children: [
+                                  // AddToPlalistbutton(songindex: index),
+                                  SizedBox(
+                                    height: height * 0.011,
+                                  ),
+                                  addToFavourite(index: index)
+                                  /* TextButton(
+                                      onPressed: () {},
+                                      child: const Text("Add to Favorites")) */
+                                ],
+                              ),
+                            );
+                          }),
+                        );
+                      }),
+                      icon: const Icon(
+                        Icons.more_vert,
+                        color: Colors.grey,
+                      ),
                     ),
                   ),
                 );

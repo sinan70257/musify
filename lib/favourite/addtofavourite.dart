@@ -1,8 +1,6 @@
-import 'dart:html';
+// ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:musik/model/dbfunctions.dart';
 import 'package:musik/model/favouriteModel.dart';
 import 'package:musik/model/songModel.dart';
@@ -29,6 +27,7 @@ class _addToFavouriteState extends State<addToFavourite> {
 
   @override
   Widget build(BuildContext context) {
+    fav = favsongsdb.values.toList();
     return fav
             .where(
                 (element) => element.songname == dbsongs[widget.index].songname)
@@ -43,10 +42,12 @@ class _addToFavouriteState extends State<addToFavourite> {
                   id: dbsongs[widget.index].id));
               setState(() {});
               Navigator.pop(context);
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text("added to favourites")));
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("Added to favourites")));
             },
-            child: const Text("add to favourites"))
+            child: const Text("Add to favourites",
+                style:
+                    TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)))
         : TextButton(
             onPressed: () async {
               if (favsongsdb.length < 1) {
@@ -59,9 +60,11 @@ class _addToFavouriteState extends State<addToFavourite> {
                 setState(() {});
                 Navigator.pop(context);
                 ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Removed from favourites")));
+                    const SnackBar(content: Text("Removed from favourites")));
               }
             },
-            child: const Text("Remove from the Favourite"));
+            child: const Text("Remove from the Favourite",
+                style: TextStyle(
+                    color: Colors.grey, fontWeight: FontWeight.bold)));
   }
 }

@@ -43,31 +43,17 @@ class Playlists extends StatelessWidget {
           )
         ],
       ),
+      bottomSheet: FloatingController(),
       backgroundColor: Colors.black,
-      body: Column(
-        children: [
-          Expanded(
-            flex: 7,
-            child: Container(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      PlayslistSongs(),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              PlayslistSongs(),
+            ],
           ),
-          Expanded(
-            flex: 1,
-            child: Container(
-              child: FloatingController(),
-            ),
-          )
-        ],
+        ),
       ),
     );
   }

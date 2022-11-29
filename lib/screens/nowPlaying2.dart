@@ -70,12 +70,12 @@ class _NowPlaying2State extends State<NowPlaying2> {
                   // ),
                   SizedBox(
                     width: 300,
-                    height: 300,
+                    height: 350,
                     child: QueryArtworkWidget(
                       id: int.parse(playing.audio.audio.metas.id!),
                       type: ArtworkType.AUDIO,
                       artworkHeight: 300,
-                      artworkWidth: 300,
+                      artworkWidth: 350,
                       artworkBorder: BorderRadius.circular(5),
                       artworkFit: BoxFit.cover,
                       nullArtworkWidget: ClipRRect(
@@ -88,11 +88,11 @@ class _NowPlaying2State extends State<NowPlaying2> {
                     ),
                   ),
                   SizedBox(
-                    height: height * 0.2,
-                    width: width,
+                    height: 20,
                   ),
                   Text(
                     player.getCurrentAudioTitle,
+                    overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                         color: Colors.white,
@@ -102,6 +102,7 @@ class _NowPlaying2State extends State<NowPlaying2> {
                   ),
                   Text(
                     player.getCurrentAudioArtist,
+                    overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       color: Colors.grey,
@@ -200,7 +201,7 @@ class _NowPlaying2State extends State<NowPlaying2> {
                   ),
 
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       PlayerBuilder.isPlaying(
@@ -221,9 +222,9 @@ class _NowPlaying2State extends State<NowPlaying2> {
                               ));
                         }),
                       ),
-                      SizedBox(
-                        width: 40,
-                      ),
+                      // SizedBox(
+                      //   width: 40,
+                      // ),
                       IconButton(
                           onPressed: () async {
                             await player.seekBy(const Duration(seconds: 10));
@@ -280,9 +281,9 @@ class _NowPlaying2State extends State<NowPlaying2> {
                                   color: Colors.white,
                                 ));
                           })),
-                      SizedBox(
-                        width: 40,
-                      ),
+                      // SizedBox(
+                      //   width: 40,
+                      // ),
                     ],
                   ),
                 ],

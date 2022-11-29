@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
       bottomSheet: FloatingController(),
       backgroundColor: Colors.black,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(120.0),
+        preferredSize: const Size.fromHeight(100.0),
         child: Container(
             decoration: const BoxDecoration(color: Colors.black),
             child: Column(
@@ -39,13 +39,14 @@ class _HomePageState extends State<HomePage> {
               ],
             )),
       ),
-      body: CupertinoScrollbar(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 8, right: 8),
-            child: Column(
-              children: [Cards(), allSongsScreen()],
-            ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 8, right: 8),
+          child: Column(
+            children: [
+              Cards(),
+              allSongsScreen(),
+            ],
           ),
         ),
       ),

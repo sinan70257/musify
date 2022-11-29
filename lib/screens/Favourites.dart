@@ -60,115 +60,133 @@ class _FavouritesState extends State<Favourites> {
           ),
           backgroundColor: Colors.black,
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              ValueListenableBuilder<Box<favsongs>>(
-                  valueListenable: Hive.box<favsongs>('favsongs').listenable(),
-                  builder: ((context, Box<favsongs> alldbfavsongs, child) {
-                    List<favsongs> allDbsongs = alldbfavsongs.values.toList();
-                    if (favsongsdb.isEmpty) {
-                      return const Center(
-                        child: Text(
-                          "No Favourites",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
+        bottomSheet: FloatingController(),
+        body: ValueListenableBuilder<Box<favsongs>>(
+            valueListenable: Hive.box<favsongs>('favsongs').listenable(),
+            builder: ((context, Box<favsongs> alldbfavsongs, child) {
+              List<favsongs> allDbsongs = alldbfavsongs.values.toList();
+              if (favsongsdb.isEmpty) {
+                return const Center(
+                  child: Text(
+                    "No Favourites",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                    ),
+                  ),
+                );
+              }
+              if (favsongsdb == null) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return ListView.builder(
+                itemCount: allDbsongs.length,
+                padding: EdgeInsets.only(top: 10),
+                itemBuilder: (context, index) {
+                  if (allDbsongs[index].songname == "ooom") {
+                    return ListTile();
+                  }
+                  return Dismissible(
+                    key: ObjectKey(allDbsongs[index]),
+                    onDismissed: (direction) {
+                      setState(() {
+                        favsongsdb.deleteAt(index);
+                      });
+                    },
+                    child: ListTile(
+                        onTap: (() {
+                          audioPlayer.open(
+                              Playlist(audios: allsongs, startIndex: index),
+                              showNotification: true,
+                              headPhoneStrategy:
+                                  HeadPhoneStrategy.pauseOnUnplug,
+                              loopMode: LoopMode.playlist);
+                          setState(() {});
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: ((context) => NowPlaying2())));
+                        }),
+                        leading: QueryArtworkWidget(
+                          id: allDbsongs[index].id!,
+                          type: ArtworkType.AUDIO,
+                          artworkFit: BoxFit.cover,
+                          size: 200,
+                          quality: 100,
+                          nullArtworkWidget: ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            child: Image.asset(
+                              'assets/images/The_Weeknd_-_After_Hours.png',
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
-                      );
-                    }
-                    if (favsongsdb == null) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                    return ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: allDbsongs.length,
-                      padding: EdgeInsets.only(top: 10),
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                            onTap: (() {
-                              audioPlayer.open(
-                                  Playlist(audios: allsongs, startIndex: index),
-                                  showNotification: true,
-                                  headPhoneStrategy:
-                                      HeadPhoneStrategy.pauseOnUnplug,
-                                  loopMode: LoopMode.playlist);
-                              setState(() {});
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: ((context) => NowPlaying2())));
-                            }),
-                            leading: QueryArtworkWidget(
-                              id: allDbsongs[index].id!,
-                              type: ArtworkType.AUDIO,
-                              artworkFit: BoxFit.cover,
-                              size: 200,
-                              quality: 100,
-                              nullArtworkWidget: ClipRRect(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                child: Image.asset(
-                                  'assets/images/The_Weeknd_-_After_Hours.png',
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            trailing: IconButton(
-                                onPressed: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: ((context) {
-                                        return AlertDialog(
-                                          title: const Text(
-                                              "Remove from favourites"),
-                                          content: const Text("Are you Sure?"),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text("Cancel"),
-                                            ),
-                                            TextButton(
-                                                onPressed: () {
-                                                  favsongsdb.deleteAt(index);
-                                                  Navigator.pop(context);
-                                                },
-                                                child: const Text("Remove"))
-                                          ],
-                                        );
-                                      }));
-                                },
-                                icon: Icon(
-                                  Icons.favorite,
-                                  color: Colors.white,
-                                )),
-                            subtitle: Text(
-                              allDbsongs[index].artist!,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: "Inter",
-                              ),
-                            ),
-                            title: Text(
-                              allDbsongs[index].songname!,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: "Inter",
-                                  fontWeight: FontWeight.bold),
-                            ));
-                      },
-                    );
-                  }))
-            ],
-          ),
-        ));
+                        trailing: IconButton(
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: ((context) {
+                                    return AlertDialog(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      backgroundColor:
+                                          Color.fromARGB(255, 50, 50, 50),
+                                      title: const Text(
+                                        "Remove from favourites",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      content: const Text("Are you Sure ?",
+                                          style:
+                                              TextStyle(color: Colors.white)),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text("Cancel",
+                                              style: TextStyle(
+                                                  color: Color.fromARGB(
+                                                      255, 213, 213, 213))),
+                                        ),
+                                        TextButton(
+                                            onPressed: () {
+                                              favsongsdb.deleteAt(index);
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Text("Remove",
+                                                style: TextStyle(
+                                                    color: (Color.fromARGB(
+                                                        255, 213, 213, 213))))),
+                                      ],
+                                    );
+                                  }));
+                            },
+                            icon: Icon(
+                              Icons.delete_outline,
+                              color: Colors.white,
+                            )),
+                        subtitle: Text(
+                          allDbsongs[index].artist!,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: "Inter",
+                          ),
+                        ),
+                        title: Text(
+                          allDbsongs[index].songname!,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: "Inter",
+                              fontWeight: FontWeight.bold),
+                        )),
+                  );
+                },
+              );
+            })));
   }
 }

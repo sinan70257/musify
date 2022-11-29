@@ -35,15 +35,8 @@ class Settings extends StatelessWidget {
         ),
       ),
       backgroundColor: Colors.black,
-      body: Stack(
-        children: [
-          SettingList2(),
-          Positioned(
-            top: 528,
-            child: FloatingController(),
-          )
-        ],
-      ),
+      body: SettingList2(),
+      bottomSheet: FloatingController(),
     );
   }
 }
