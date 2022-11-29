@@ -85,9 +85,6 @@ class _FavouritesState extends State<Favourites> {
                 itemCount: allDbsongs.length,
                 padding: EdgeInsets.only(top: 10),
                 itemBuilder: (context, index) {
-                  if (allDbsongs[index].songname == "ooom") {
-                    return ListTile();
-                  }
                   return Dismissible(
                     key: ObjectKey(allDbsongs[index]),
                     onDismissed: (direction) {
