@@ -36,7 +36,7 @@ class Settings extends StatelessWidget {
       ),
       backgroundColor: Colors.black,
       body: SettingList2(),
-      bottomSheet: FloatingController(),
+      // bottomSheet: FloatingController(),
     );
   }
 }

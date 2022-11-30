@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:musik/widgets/FloatingControler.dart';
 import 'HomePage.dart';
 import 'Playlists.dart';
 import 'Settings.dart';
@@ -21,11 +22,12 @@ class _BottomNavbarState extends State<BottomNavbar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomSheet: FloatingController(),
       body: widget.pages[widget.currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         unselectedItemColor: Colors.grey,
         selectedItemColor: Colors.white,
-        selectedIconTheme: IconThemeData(color: Colors.white),
+        selectedIconTheme: const IconThemeData(color: Colors.white),
         onTap: (newCurrentIndex) {
           setState(() {
             widget.currentIndex = newCurrentIndex;

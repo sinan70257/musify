@@ -51,7 +51,7 @@ class _addToFavState extends State<addToFav> {
             },
             icon: const Icon(
               Icons.favorite_border,
-              color: Colors.white,
+              color: Colors.grey,
             ))
         : IconButton(
             onPressed: () async {
@@ -71,7 +71,7 @@ class _addToFavState extends State<addToFav> {
             },
             icon: const Icon(
               Icons.favorite,
-              color: Colors.white,
+              color: Colors.grey,
             ));
   }
 }

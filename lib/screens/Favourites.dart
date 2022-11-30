@@ -4,6 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:musik/model/dbfunctions.dart';
 import 'package:musik/model/favouriteModel.dart';
+import 'package:musik/screens/BottomNavbar.dart';
 import 'package:musik/screens/HomePage.dart';
 import 'package:musik/screens/nowPlaying2.dart';
 import 'package:musik/widgets/Favourites.dart';
@@ -37,13 +38,15 @@ class _FavouritesState extends State<Favourites> {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
           leading: IconButton(
               onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: ((context) => HomePage())));
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: ((c) => BottomNavbar())));
               },
               icon: Icon(
                 Icons.arrow_back,

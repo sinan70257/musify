@@ -26,10 +26,10 @@ class _HomePageState extends State<HomePage> {
     // } else
     // ignore: curly_braces_in_flow_control_structures
     return Scaffold(
-      bottomSheet: FloatingController(),
+      // bottomSheet: FloatingController(),
       backgroundColor: Colors.black,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(height * .14),
+        preferredSize: Size.fromHeight(100),
         child: Container(
             decoration: const BoxDecoration(color: Colors.black),
             child: Column(

@@ -1,7 +1,6 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:musik/favourite/addtofavourite.dart';
 import 'package:musik/model/songModel.dart';
 import 'package:musik/screens/nowPlaying2.dart';
 import 'package:musik/widgets/addTofavourite.dart';

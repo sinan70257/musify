@@ -5,12 +5,14 @@ class BannerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(left: 8.0),
       child: Column(
         children: [
-          const SizedBox(
-            height: 40,
+          SizedBox(
+            height: height * 0.050,
           ),
           Row(
             children: const [
