@@ -7,6 +7,7 @@ import 'package:musik/model/songModel.dart';
 import 'package:musik/screens/SplashScreen.dart';
 
 Future<void> main() async {
+  bool kkey = true;
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
 

@@ -1,7 +1,10 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:musik/model/songModel.dart';
 import 'package:musik/screens/HomePage.dart';
+import 'package:musik/screens/SplashScreen.dart';
+import 'package:musik/widgets/addTofavourite.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class NowPlaying2 extends StatefulWidget {
@@ -15,7 +18,17 @@ class _NowPlaying2State extends State<NowPlaying2> {
   final player = AssetsAudioPlayer.withId('0');
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
+  late List<Songs> dbsongs;
+  bool isRepeat = false;
+  bool isPlaying = false;
 
+  @override
+  void initState() {
+    dbsongs = box.values.toList();
+
+    super.initState();
+    setState(() {});
+  }
   // @override
   // void initState() {
   //   // TODO: implement initState
@@ -31,6 +44,14 @@ class _NowPlaying2State extends State<NowPlaying2> {
     return player.builderCurrent(builder: ((context, playing) {
       return Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              )),
           // leading: IconButton(
           //     onPressed: () {
           //       // Navigator.of(context).push(
@@ -90,15 +111,18 @@ class _NowPlaying2State extends State<NowPlaying2> {
                   SizedBox(
                     height: 20,
                   ),
-                  Text(
-                    player.getCurrentAudioTitle,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontFamily: "Inter",
-                        fontWeight: FontWeight.w900),
+                  SizedBox(
+                    width: width * 0.75,
+                    child: Text(
+                      player.getCurrentAudioTitle,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 30,
+                          fontFamily: "Inter",
+                          fontWeight: FontWeight.w900),
+                    ),
                   ),
                   Text(
                     player.getCurrentAudioArtist,
@@ -124,26 +148,56 @@ class _NowPlaying2State extends State<NowPlaying2> {
                             size: 30,
                           )),
                       IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.loop,
-                            color: Colors.white,
-                            size: 30,
-                          )),
+                          onPressed: () {
+                            setState(() {
+                              if (isRepeat) {
+                                player.setLoopMode(LoopMode.none);
+                                isRepeat = false;
+                              } else {
+                                player.setLoopMode(LoopMode.single);
+                              }
+                            });
+                          },
+                          icon: isRepeat
+                              ? const Icon(
+                                  Icons.repeat,
+                                  color: Colors.white,
+                                  size: 30,
+                                )
+                              : const Icon(
+                                  Icons.repeat,
+                                  color: Colors.grey,
+                                  size: 30,
+                                )),
                       IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.shuffle,
-                            color: Colors.white,
-                            size: 30,
-                          )),
-                      IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.favorite_border_outlined,
-                            color: Colors.white,
-                            size: 30,
-                          )),
+                          onPressed: () {
+                            setState(() {});
+                            player.toggleShuffle();
+                          },
+                          icon: player.isShuffling.value
+                              ? Icon(
+                                  Icons.shuffle,
+                                  color: Colors.white,
+                                  size: 30,
+                                )
+                              : const Icon(
+                                  Icons.shuffle,
+                                  color: Colors.grey,
+                                  size: 30,
+                                )),
+                      // IconButton(
+                      //     onPressed: () {},
+                      //     icon: Icon(
+                      //       Icons.favorite_border_outlined,
+                      //       color: Colors.white,
+                      //       size: 30,
+                      //     )),
+                      player.builderCurrent(builder: ((context, playing) {
+                        return addToFav(
+                            index: dbsongs.indexWhere((element) =>
+                                element.songname ==
+                                playing.audio.audio.metas.title));
+                      }))
                     ],
                   ),
                   SizedBox(
@@ -174,9 +228,9 @@ class _NowPlaying2State extends State<NowPlaying2> {
                               timeLabelTextStyle:
                                   TextStyle(color: Colors.white),
                               total: duration,
-                              onSeek: (duration) {
+                              onSeek: (duration) async {
                                 // print('User selected a new time: $duration');
-                                player.seek(duration);
+                                await player.seek(duration);
                               },
                             );
                           },
@@ -213,7 +267,7 @@ class _NowPlaying2State extends State<NowPlaying2> {
                                 await player.previous();
                                 setState(() {});
                                 if (isPlaying == false) {
-                                  player.pause();
+                                  await player.pause();
                                 }
                               },
                               icon: Icon(
@@ -227,7 +281,7 @@ class _NowPlaying2State extends State<NowPlaying2> {
                       // ),
                       IconButton(
                           onPressed: () async {
-                            await player.seekBy(const Duration(seconds: 10));
+                            await player.seekBy(const Duration(seconds: -10));
                           },
                           icon: const Icon(
                             Icons.replay_10,
@@ -244,8 +298,8 @@ class _NowPlaying2State extends State<NowPlaying2> {
                               player: player,
                               builder: (context, isPlaying) {
                                 return IconButton(
-                                  onPressed: () {
-                                    player.playOrPause();
+                                  onPressed: () async {
+                                    await player.playOrPause();
                                   },
                                   icon: Icon(isPlaying
                                       ? Icons.pause
@@ -257,8 +311,8 @@ class _NowPlaying2State extends State<NowPlaying2> {
                         ),
                       ),
                       IconButton(
-                          onPressed: () {
-                            player.seekBy(Duration(seconds: 10));
+                          onPressed: () async {
+                            await player.seekBy(Duration(seconds: 10));
                           },
                           icon: Icon(
                             Icons.forward_10,
@@ -270,10 +324,10 @@ class _NowPlaying2State extends State<NowPlaying2> {
                             return IconButton(
                                 iconSize: 40,
                                 onPressed: () async {
-                                  player.next();
+                                  await player.next();
                                   setState(() {});
                                   if (isPlaying == false) {
-                                    player.pause();
+                                    await player.pause();
                                   }
                                 },
                                 icon: Icon(

@@ -4,6 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:musik/model/dbfunctions.dart';
 import 'package:musik/model/favouriteModel.dart';
+import 'package:musik/screens/HomePage.dart';
 import 'package:musik/screens/nowPlaying2.dart';
 import 'package:musik/widgets/Favourites.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -39,6 +40,15 @@ class _FavouritesState extends State<Favourites> {
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: ((context) => HomePage())));
+              },
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              )),
           title: Row(
             children: const [
               Text(

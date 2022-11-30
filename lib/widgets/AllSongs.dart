@@ -4,6 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:musik/favourite/addtofavourite.dart';
 import 'package:musik/model/songModel.dart';
 import 'package:musik/screens/nowPlaying2.dart';
+import 'package:musik/widgets/addTofavourite.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class allSongsScreen extends StatefulWidget {
@@ -16,6 +17,7 @@ class allSongsScreen extends StatefulWidget {
 class _allSongsScreenState extends State<allSongsScreen> {
   late bool isplaying;
   late bool playerVisibility;
+
   final box = SongBox.getInstance();
   List<Audio> convertAudios = [];
   final AssetsAudioPlayer _audioPlayer = AssetsAudioPlayer.withId('0');
@@ -58,7 +60,7 @@ class _allSongsScreenState extends State<allSongsScreen> {
               shrinkWrap: true,
               itemCount: allDbdongs.length,
               itemBuilder: (context, index) {
-                bool toggle = false;
+                bool fav = true;
                 Songs songs = allDbdongs[index];
                 return Padding(
                   padding: const EdgeInsets.fromLTRB(0, 5, 0, 2),
@@ -94,15 +96,16 @@ class _allSongsScreenState extends State<allSongsScreen> {
                       ),
                     ),
                     subtitle: Text(
-                      songs.songname!,
+                      songs.artist!,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
-                        color: Colors.white,
+                        color: Colors.grey,
                         fontFamily: "Inter",
                       ),
                     ),
                     title: Text(
-                      songs.artist!,
+                      songs.songname!,
                       style: const TextStyle(
                           color: Colors.white,
                           fontFamily: "Inter",
@@ -138,39 +141,45 @@ class _allSongsScreenState extends State<allSongsScreen> {
                     //         }),
                     //   ],
                     // ),
-                    trailing: IconButton(
-                      onPressed: (() {
-                        showModalBottomSheet(
-                          backgroundColor: Colors.black,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(20),
-                            ),
-                          ),
-                          context: context,
-                          builder: ((context) {
-                            return SizedBox(
-                              height: height * 0.13,
-                              child: Column(
-                                children: [
-                                  // AddToPlalistbutton(songindex: index),
-                                  SizedBox(
-                                    height: height * 0.011,
-                                  ),
-                                  addToFavourite(index: index)
-                                  /* TextButton(
-                                      onPressed: () {},
-                                      child: const Text("Add to Favorites")) */
-                                ],
-                              ),
-                            );
-                          }),
-                        );
-                      }),
-                      icon: const Icon(
-                        Icons.more_vert,
-                        color: Colors.grey,
-                      ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        addToFav(index: index),
+                        // IconButton(
+                        //   onPressed: (() {
+                        //     showModalBottomSheet(
+                        //       backgroundColor: Colors.black,
+                        //       shape: const RoundedRectangleBorder(
+                        //         borderRadius: BorderRadius.vertical(
+                        //           top: Radius.circular(20),
+                        //         ),
+                        //       ),
+                        //       context: context,
+                        //       builder: ((context) {
+                        //         return SizedBox(
+                        //           height: height * 0.13,
+                        //           child: Column(
+                        //             children: [
+                        //               // AddToPlalistbutton(songindex: index),
+                        //               SizedBox(
+                        //                 height: height * 0.011,
+                        //               ),
+                        //               addToFavourite(index: index)
+                        //               /* TextButton(
+                        //                   onPressed: () {},
+                        //                   child: const Text("Add to Favorites")) */
+                        //             ],
+                        //           ),
+                        //         );
+                        //       }),
+                        //     );
+                        //   }),
+                        //   icon: const Icon(
+                        //     Icons.more_vert,
+                        //     color: Colors.grey,
+                        //   ),
+                        // ),
+                      ],
                     ),
                   ),
                 );

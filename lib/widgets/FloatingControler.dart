@@ -126,9 +126,10 @@ class _FloatingControllerState extends State<FloatingController> {
                     IconButton(
                       onPressed: () async {
                         await player.previous();
+
                         setState(() {});
                         if (isPlaying == false) {
-                          player.pause();
+                          await player.pause();
                         }
                       },
                       icon: Icon(
@@ -149,7 +150,7 @@ class _FloatingControllerState extends State<FloatingController> {
                         await player.next();
                         setState(() {});
                         if (isPlaying == false) {
-                          player.pause();
+                          await player.pause();
                         }
                       },
                       icon: Icon(
