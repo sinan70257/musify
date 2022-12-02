@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class PlayslistSongs extends StatefulWidget {
-  const PlayslistSongs({super.key});
+class PlayslistSongs1 extends StatefulWidget {
+  const PlayslistSongs1({super.key});
 
   @override
-  State<PlayslistSongs> createState() => _PlayslistSongsState();
+  State<PlayslistSongs1> createState() => _PlayslistSongsState();
 }
 
-class _PlayslistSongsState extends State<PlayslistSongs> {
+class _PlayslistSongsState extends State<PlayslistSongs1> {
   bool toggle = false;
   @override
   Widget build(BuildContext context) {

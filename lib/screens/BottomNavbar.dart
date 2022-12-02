@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:musik/widgets/FloatingControler.dart';
+import 'package:musik/widgets/playlists/playlistScreen.dart';
 import 'HomePage.dart';
 import 'Playlists.dart';
 import 'Settings.dart';
@@ -10,6 +11,7 @@ class BottomNavbar extends StatefulWidget {
   int currentIndex = 0;
   List pages = const [
     HomePage(),
+    // playLists(),
     Playlists(),
     Settings(),
   ];

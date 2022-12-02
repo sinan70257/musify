@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
       // bottomSheet: FloatingController(),
       backgroundColor: Colors.black,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(100),
+        preferredSize: Size.fromHeight(135),
         child: Container(
             decoration: const BoxDecoration(color: Colors.black),
             child: Column(

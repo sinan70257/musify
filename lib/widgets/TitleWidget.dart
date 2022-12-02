@@ -15,17 +15,27 @@ class BannerWidget extends StatelessWidget {
             height: height * 0.050,
           ),
           Row(
-            children: const [
-              Text(
-                "M",
+            children: [
+              Container(
+                height: 55,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  child: Image.asset(
+                    'assets/musify.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              const Text(
+                "m",
                 style: TextStyle(
                     fontFamily: "Inter",
                     fontSize: 35,
                     fontWeight: FontWeight.w900,
                     color: Colors.grey),
               ),
-              Text(
-                "usify",
+              const Text(
+                "usify.",
                 style: TextStyle(
                     fontFamily: "Inter",
                     fontSize: 35,

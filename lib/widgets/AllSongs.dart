@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:musik/model/songModel.dart';
 import 'package:musik/screens/nowPlaying2.dart';
+import 'package:musik/widgets/playlists/addToPlaylist.dart';
 import 'package:musik/widgets/addTofavourite.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -96,7 +97,7 @@ class _allSongsScreenState extends State<allSongsScreen> {
                     ),
                     subtitle: Text(
                       songs.artist!,
-                      maxLines: 2,
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         color: Colors.grey,
@@ -105,79 +106,18 @@ class _allSongsScreenState extends State<allSongsScreen> {
                     ),
                     title: Text(
                       songs.songname!,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                           color: Colors.white,
                           fontFamily: "Inter",
                           fontWeight: FontWeight.bold),
                     ),
-                    // trailing: Row(
-                    //   mainAxisSize: MainAxisSize.min,
-                    //   children: [
-                    //     Padding(
-                    //         padding: EdgeInsets.only(right: 10),
-                    //         child: IconButton(
-                    //             onPressed: () {},
-                    //             icon: Icon(
-                    //               Icons.playlist_add,
-                    //               color: Colors.white,
-                    //               size: 30,
-                    //             ))),
-                    //     IconButton(
-                    //         icon: toggle
-                    //             ? Icon(
-                    //                 Icons.favorite_border,
-                    //                 color: Colors.white,
-                    //               )
-                    //             : Icon(
-                    //                 Icons.favorite,
-                    //                 color: Colors.white,
-                    //               ),
-                    //         onPressed: () {
-                    //           setState(() {
-                    //             // Here we changing the icon.
-                    //             toggle = !toggle;
-                    //           });
-                    //         }),
-                    //   ],
-                    // ),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        addToPlaylist(songindex: index),
                         addToFav(index: index),
-                        // IconButton(
-                        //   onPressed: (() {
-                        //     showModalBottomSheet(
-                        //       backgroundColor: Colors.black,
-                        //       shape: const RoundedRectangleBorder(
-                        //         borderRadius: BorderRadius.vertical(
-                        //           top: Radius.circular(20),
-                        //         ),
-                        //       ),
-                        //       context: context,
-                        //       builder: ((context) {
-                        //         return SizedBox(
-                        //           height: height * 0.13,
-                        //           child: Column(
-                        //             children: [
-                        //               // AddToPlalistbutton(songindex: index),
-                        //               SizedBox(
-                        //                 height: height * 0.011,
-                        //               ),
-                        //               addToFavourite(index: index)
-                        //               /* TextButton(
-                        //                   onPressed: () {},
-                        //                   child: const Text("Add to Favorites")) */
-                        //             ],
-                        //           ),
-                        //         );
-                        //       }),
-                        //     );
-                        //   }),
-                        //   icon: const Icon(
-                        //     Icons.more_vert,
-                        //     color: Colors.grey,
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),
