@@ -50,7 +50,9 @@ class AlbumArt extends StatelessWidget {
                       Text(
                         "$song songs",
                         style: TextStyle(
-                            fontSize: 11, fontWeight: FontWeight.w500),
+                            fontFamily: "Inter",
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11),
                       )
                     ],
                   ),

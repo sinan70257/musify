@@ -11,8 +11,6 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:musik/screens/nowPlaying2.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-import '../../model/songModel.dart';
-
 class ScreenPlaylist extends StatefulWidget {
   ScreenPlaylist(
       {super.key,
@@ -124,121 +122,104 @@ class _ScreenPlaylistState extends State<ScreenPlaylist> {
               shrinkWrap: true,
               itemCount: songs.length,
               itemBuilder: ((context, index) {
-                return Dismissible(
-                  key: ObjectKey(plsongs[index]),
-                  onDismissed: (direction) {
-                    setState(() {
-                      songs.removeAt(index);
-                      plsongs.removeAt(index);
-                      playlistbox.putAt(
-                          widget.playlistindex,
-                          PlaylistSongs(
-                              playlistname: widget.playlistname,
-                              playlistssongs: songs));
-                    });
+                return ListTile(
+                  onTap: () {
+                    player.open(Playlist(audios: plstsongs, startIndex: index),
+                        showNotification: true, loopMode: LoopMode.playlist);
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const NowPlaying2(),
+                    ));
+                    /* Navigator.push(context,
+                    MaterialPageRoute(builder: ((context) => playingNow()))); */
                   },
-                  child: ListTile(
-                    onTap: () {
-                      player.open(
-                          Playlist(audios: plstsongs, startIndex: index),
-                          showNotification: true,
-                          loopMode: LoopMode.playlist);
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const NowPlaying2(),
-                      ));
-                      /* Navigator.push(context,
-                      MaterialPageRoute(builder: ((context) => playingNow()))); */
-                    },
-                    leading: QueryArtworkWidget(
-                      artworkFit: BoxFit.cover,
-                      id: songs[index].id!,
-                      type: ArtworkType.AUDIO,
-                      artworkQuality: FilterQuality.high,
-                      size: 2000,
-                      quality: 100,
-                      artworkBorder: BorderRadius.circular(10),
-                      nullArtworkWidget: ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(50)),
-                        child: Image.asset(
-                          'assets/musify.png',
-                          fit: BoxFit.cover,
-                        ),
+                  leading: QueryArtworkWidget(
+                    artworkFit: BoxFit.cover,
+                    id: songs[index].id!,
+                    type: ArtworkType.AUDIO,
+                    artworkQuality: FilterQuality.high,
+                    size: 2000,
+                    quality: 100,
+                    artworkBorder: BorderRadius.circular(10),
+                    nullArtworkWidget: ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(50)),
+                      child: Image.asset(
+                        'assets/musify.png',
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    subtitle: Text(
-                      songs[index].artist!,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          color: Colors.grey,
-                          fontFamily: "Inter",
-                          fontWeight: FontWeight.bold),
-                    ),
-                    title: Text(
-                      songs[index].songname!,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontFamily: "Inter",
-                          fontWeight: FontWeight.bold),
-                    ),
-                    trailing: IconButton(
-                      onPressed: (() {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              backgroundColor: Color.fromARGB(255, 50, 50, 50),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              title: const Text(
-                                "Delete Playlist",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              content: const Text(
-                                "Are You Sure ?",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              actions: [
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text("Cancel",
-                                        style: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 213, 213, 213)))),
-                                TextButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        songs.removeAt(index);
-                                        plsongs.removeAt(index);
-                                        playlistbox.putAt(
-                                            widget.playlistindex,
-                                            PlaylistSongs(
-                                                playlistname:
-                                                    widget.playlistname,
-                                                playlistssongs: songs));
-                                      });
-                                      setState(() {});
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text("Delete",
-                                        style: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 213, 213, 213))))
-                              ],
-                            );
-                          },
-                        );
-                      }),
-                      icon: const Icon(
-                        Icons.delete_outline_outlined,
+                  ),
+                  subtitle: Text(
+                    songs[index].artist!,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
                         color: Colors.grey,
-                      ),
+                        fontFamily: "Inter",
+                        fontWeight: FontWeight.bold),
+                  ),
+                  title: Text(
+                    songs[index].songname!,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontFamily: "Inter",
+                        fontWeight: FontWeight.bold),
+                  ),
+                  trailing: IconButton(
+                    onPressed: (() {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            backgroundColor: Color.fromARGB(255, 50, 50, 50),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            title: const Text(
+                              "Delete Playlist",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            content: const Text(
+                              "Are You Sure ?",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text("Cancel",
+                                      style: TextStyle(
+                                          color: Color.fromARGB(
+                                              255, 213, 213, 213)))),
+                              TextButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      songs.removeAt(index);
+                                      plsongs.removeAt(index);
+                                      playlistbox.putAt(
+                                          widget.playlistindex,
+                                          PlaylistSongs(
+                                              playlistname: widget.playlistname,
+                                              playlistssongs: songs));
+                                      // Navigator.pop(context);
+                                    });
+                                    setState(() {});
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text("Delete",
+                                      style: TextStyle(
+                                          color: Color.fromARGB(
+                                              255, 213, 213, 213))))
+                            ],
+                          );
+                        },
+                      );
+                    }),
+                    icon: const Icon(
+                      Icons.delete_outline_outlined,
+                      color: Colors.grey,
                     ),
                   ),
                 );

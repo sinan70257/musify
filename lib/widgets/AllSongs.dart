@@ -1,8 +1,12 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:musik/model/dbfunctions.dart';
+import 'package:musik/model/mostPlayed.dart';
+import 'package:musik/model/recentlyPlayed.dart';
 import 'package:musik/model/songModel.dart';
 import 'package:musik/screens/nowPlaying2.dart';
+import 'package:musik/screens/recentlyPlayedScreen.dart';
 import 'package:musik/widgets/playlists/addToPlaylist.dart';
 import 'package:musik/widgets/addTofavourite.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -45,6 +49,7 @@ class _allSongsScreenState extends State<allSongsScreen> {
         valueListenable: box.listenable(),
         builder: ((context, Box<Songs> allsongbox, child) {
           List<Songs> allDbdongs = allsongbox.values.toList();
+          List<MostPlayed> allmostplayedsongs = mostplayedsongs.values.toList();
           if (allDbdongs.isEmpty) {
             return const Center(
               child: CircularProgressIndicator(),
@@ -62,10 +67,22 @@ class _allSongsScreenState extends State<allSongsScreen> {
               itemBuilder: (context, index) {
                 bool fav = true;
                 Songs songs = allDbdongs[index];
+                MostPlayed MPsongs = allmostplayedsongs[index];
+                // MostPlayed MPsongs = allmostplayedsongs[index];
+                RecentlyPlayed rsongs;
                 return Padding(
                   padding: const EdgeInsets.fromLTRB(0, 5, 0, 2),
                   child: ListTile(
                     onTap: (() {
+                      rsongs = RecentlyPlayed(
+                          songname: songs.songname,
+                          id: songs.id,
+                          artist: songs.artist,
+                          duration: songs.duration,
+                          songurl: songs.songurl);
+                      updateRecentPlayed(rsongs, index);
+                      updatePlayedSongsCount(MPsongs, index);
+                      // updatePlayedSongsCount(MPsongs, index);
                       _audioPlayer.open(
                           Playlist(audios: convertAudios, startIndex: index),
                           showNotification: true,
@@ -90,7 +107,7 @@ class _allSongsScreenState extends State<allSongsScreen> {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(10)),
                         child: Image.asset(
-                          'assets/images/The_Weeknd_-_After_Hours.png',
+                          'assets/musify.png',
                           fit: BoxFit.cover,
                         ),
                       ),

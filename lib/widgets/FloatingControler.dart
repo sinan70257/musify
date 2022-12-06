@@ -60,7 +60,7 @@ class _FloatingControllerState extends State<FloatingController> {
               artworkFit: BoxFit.cover,
               nullArtworkWidget: ClipRect(
                 child: Image.asset(
-                  "assets/images/500x500.jpg",
+                  "assets/musify.png",
                   fit: BoxFit.cover,
                   width: 60,
                   height: 60,

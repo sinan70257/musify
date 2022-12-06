@@ -4,6 +4,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:musik/model/favouriteModel.dart';
 import 'package:musik/screens/Favourites.dart';
 import 'package:musik/screens/Playlists.dart';
+import 'package:musik/screens/mostlyPlayed.dart';
+import 'package:musik/screens/recentlyPlayedScreen.dart';
 import 'package:musik/widgets/AlbumArt.dart';
 
 class Cards extends StatelessWidget {
@@ -37,9 +39,9 @@ class Cards extends StatelessWidget {
                     InkWell(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: ((context) => Playlists())));
+                            builder: ((context) => mostlyPlayed())));
                       },
-                      child: AlbumArt(
+                      child: const AlbumArt(
                         imageName:
                             "assets/images/4455a314edfff1a63c30f03d9d135c64.1000x1000x1.jpg",
                         head: "Most Played",
@@ -49,10 +51,10 @@ class Cards extends StatelessWidget {
                     InkWell(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: ((context) => Playlists())));
+                            builder: ((context) => recentlyPlayed())));
                       },
-                      child: AlbumArt(
-                        imageName: "assets/images/The_Weeknd_-_After_Hours.png",
+                      child: const AlbumArt(
+                        imageName: "assets/images/The_Weeknd_-_After_Hours.jpg",
                         head: "Recent Played",
                         song: 0,
                       ),

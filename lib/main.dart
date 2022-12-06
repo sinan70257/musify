@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:musik/model/dbfunctions.dart';
 import 'package:musik/model/favouriteModel.dart';
+import 'package:musik/model/mostPlayed.dart';
 import 'package:musik/model/playlistmodel.dart';
+import 'package:musik/model/recentlyPlayed.dart';
 import 'package:musik/model/songModel.dart';
 import 'package:musik/screens/SplashScreen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await Hive.initFlutter();
 
   Hive.registerAdapter(SongsAdapter());
@@ -19,6 +23,10 @@ Future<void> main() async {
   runApp(const MyApp());
   Hive.registerAdapter(PlaylistSongsAdapter());
   opendatabase();
+  Hive.registerAdapter(MostPlayedAdapter());
+  openmostplayeddb();
+  Hive.registerAdapter(RecentlyPlayedAdapter());
+  openrecentlyplayeddb();
 }
 
 class MyApp extends StatefulWidget {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:musik/screens/searchScreen.dart';
 
 class SearchBar extends StatelessWidget {
   const SearchBar({super.key});
@@ -13,6 +14,12 @@ class SearchBar extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(left: 8.0, right: 8),
         child: TextFormField(
+          // autofocus: false,
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => ScreenSearch(),
+            ));
+          },
           decoration: InputDecoration(
             filled: true,
             isDense: false,

@@ -1,6 +1,8 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:musik/model/dbfunctions.dart';
+import 'package:musik/model/mostPlayed.dart';
 import 'package:musik/model/songModel.dart';
 import 'package:musik/screens/BottomNavbar.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -22,13 +24,13 @@ List<Audio> fullsongs = [];
 class _SplashState extends State<Splash> {
   @override
   void initState() {
-    super.initState();
+    requestStoragePermission();
 
-    Future.delayed(const Duration(seconds: 5)).then((value) {
+    Future.delayed(const Duration(seconds: 1)).then((value) {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: ((ctx) => BottomNavbar())));
     });
-    requestStoragePermission();
+    super.initState();
   }
 
   requestStoragePermission() async {
@@ -41,6 +43,17 @@ class _SplashState extends State<Splash> {
         if (element.fileExtension == "mp3") {
           allSongs.add(element);
         }
+      }
+      for (var element in allSongs) {
+        mostplayedsongs.add(
+          MostPlayed(
+              songname: element.title,
+              songurl: element.uri!,
+              duration: element.duration!,
+              artist: element.artist!,
+              count: 0,
+              id: element.id),
+        );
       }
 
       for (var element in allSongs) {
@@ -61,23 +74,21 @@ class _SplashState extends State<Splash> {
         backgroundColor: Colors.black,
         body: SizedBox(
           width: double.infinity,
-          child: Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                SizedBox(
-                  height: 90,
-                ),
-                Image(
-                  image: AssetImage("assets/logo.jpg"),
-                  width: 150,
-                ),
-                SpinKitThreeBounce(
-                  color: Color.fromARGB(255, 87, 87, 87),
-                  size: 30.0,
-                ),
-              ],
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              SizedBox(
+                height: 90,
+              ),
+              Image(
+                image: AssetImage("assets/logo.jpg"),
+                width: 150,
+              ),
+              SpinKitThreeBounce(
+                color: Color.fromARGB(255, 87, 87, 87),
+                size: 30.0,
+              ),
+            ],
           ),
         ));
   }

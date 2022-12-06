@@ -43,12 +43,13 @@ class _FavouritesState extends State<Favourites> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         leading: IconButton(
             onPressed: () {
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: ((c) => BottomNavbar())));
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: Colors.white,
             )),
@@ -73,7 +74,7 @@ class _FavouritesState extends State<Favourites> {
         ),
         backgroundColor: Colors.black,
       ),
-      bottomSheet: FloatingController(),
+      bottomSheet: const FloatingController(),
       body: ValueListenableBuilder<Box<favsongs>>(
         valueListenable: Hive.box<favsongs>('favsongs').listenable(),
         builder: ((context, Box<favsongs> alldbfavsongs, child) {
@@ -89,6 +90,7 @@ class _FavouritesState extends State<Favourites> {
               ),
             );
           }
+          // ignore: unnecessary_null_comparison
           if (favsongsdb == null) {
             return const Center(
               child: CircularProgressIndicator(),
@@ -96,13 +98,17 @@ class _FavouritesState extends State<Favourites> {
           }
           return ListView.builder(
             itemCount: allDbsongs.length,
-            padding: EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(top: 10),
             itemBuilder: (context, index) {
               return Dismissible(
                 key: ObjectKey(allDbsongs[index]),
                 onDismissed: (direction) {
                   setState(() {
                     favsongsdb.deleteAt(index);
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const Favourites(),
+                    ));
+                    // initState();
                   });
                 },
                 child: ListTile(
@@ -112,7 +118,9 @@ class _FavouritesState extends State<Favourites> {
                           showNotification: true,
                           headPhoneStrategy: HeadPhoneStrategy.pauseOnUnplug,
                           loopMode: LoopMode.playlist);
-                      setState(() {});
+                      setState(() {
+                        // initState();
+                      });
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -164,6 +172,10 @@ class _FavouritesState extends State<Favourites> {
                                         onPressed: () {
                                           favsongsdb.deleteAt(index);
                                           Navigator.pop(context);
+                                          Navigator.of(context).pushReplacement(
+                                              MaterialPageRoute(
+                                            builder: (context) => Favourites(),
+                                          ));
                                         },
                                         child: const Text("Remove",
                                             style: TextStyle(

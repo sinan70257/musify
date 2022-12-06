@@ -23,7 +23,7 @@ class _PlayslistSongsState extends State<PlayslistSongs1> {
                   leading: ClipRRect(
                     borderRadius: BorderRadius.circular(5),
                     child: Image.asset(
-                        'assets/images/The_Weeknd_-_After_Hours.png'),
+                        'assets/images/The_Weeknd_-_After_Hours.jpg'),
                   ),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,

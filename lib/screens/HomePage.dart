@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:musik/screens/searchScreen.dart';
 import 'package:musik/widgets/Cards.dart';
-import 'package:musik/widgets/FloatingControler.dart';
 import 'package:musik/widgets/SearchBar.dart';
 import 'package:musik/widgets/TitleWidget.dart';
 import 'package:musik/widgets/allSongs.dart';
@@ -20,22 +19,40 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-
-    // if (isPlayerVisible) {
-    //   return NowPlaying2();
-    // } else
-    // ignore: curly_braces_in_flow_control_structures
     return Scaffold(
-      // bottomSheet: FloatingController(),
       backgroundColor: Colors.black,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(135),
+        preferredSize: Size.fromHeight(100),
         child: Container(
             decoration: const BoxDecoration(color: Colors.black),
             child: Column(
-              children: const [
-                BannerWidget(),
-                SearchBar(),
+              children: [
+                SizedBox(
+                  height: height * 0.050,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      BannerWidget(),
+                      SizedBox(
+                        width: width * .10,
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => ScreenSearch()));
+                          },
+                          icon: Icon(
+                            Icons.search,
+                            size: 30,
+                            color: Colors.white,
+                          ))
+                    ],
+                  ),
+                ),
               ],
             )),
       ),
@@ -50,34 +67,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      // body: Column(
-      //   children: [
-      //     Expanded(
-      //       flex: 6,
-      //       child: Container(
-      //         // height: 455,
-      //         child: SingleChildScrollView(
-      //           child: Padding(
-      //             padding: const EdgeInsets.all(8.0),
-      //             child: Column(
-      //               crossAxisAlignment: CrossAxisAlignment.start,
-      //               children: const [
-      //                 Cards(),
-      //                 AllSongs(),
-      //               ],
-      //             ),
-      //           ),
-      //         ),
-      //       ),
-      //     ),
-      //     Expanded(
-      //       flex: 1,
-      //       child: Container(
-      //         child: FloatingController(),
-      //       ),
-      //     )
-      //   ],
-      // ),
     );
   }
 

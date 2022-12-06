@@ -1,5 +1,6 @@
 // ignore_for_file: camel_case_types, prefer_final_fields, non_constant_identifier_names, unused_local_variable
 
+import 'package:musik/Colors/colors.dart';
 import 'package:musik/model/dbfunctions.dart';
 import 'package:musik/model/playlistmodel.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +23,11 @@ class _playListsState extends State<playLists> {
   List<PlaylistSongs> playlist = [];
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.black,
         title: Row(
           children: const [
@@ -63,7 +67,7 @@ class _playListsState extends State<playLists> {
           )
         ],
       ),
-      backgroundColor: const Color.fromARGB(255, 21, 21, 21),
+      backgroundColor: Color.fromARGB(255, 21, 21, 21),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -85,9 +89,7 @@ class _playListsState extends State<playLists> {
               child: Text(
             'No Playlist Created',
             style: TextStyle(
-                fontSize: 20,
-                color: Color.fromARGB(255, 255, 255, 255),
-                fontWeight: FontWeight.w500),
+                fontSize: 20, color: Colors.white, fontWeight: FontWeight.w500),
           )),
         ),
       );
@@ -166,7 +168,7 @@ class _playListsState extends State<playLists> {
                             );
                           },
                           icon: const Icon(
-                            Icons.edit,
+                            Icons.edit_outlined,
                             color: Colors.grey,
                           )),
                       IconButton(
@@ -193,7 +195,7 @@ class _playListsState extends State<playLists> {
                                       onPressed: () {
                                         Navigator.pop(context);
                                       },
-                                      child: const Text("Cancel",
+                                      child: Text("Cancel",
                                           style: TextStyle(
                                               color: Color.fromARGB(
                                                   255, 213, 213, 213)))),
@@ -202,7 +204,7 @@ class _playListsState extends State<playLists> {
                                         playlistbox.deleteAt(index);
                                         Navigator.pop(context);
                                       },
-                                      child: const Text("Delete",
+                                      child: Text("Delete",
                                           style: TextStyle(
                                               color: Color.fromARGB(
                                                   255, 213, 213, 213))))
@@ -212,7 +214,7 @@ class _playListsState extends State<playLists> {
                           );
                         }),
                         icon: const Icon(
-                          Icons.delete,
+                          Icons.delete_outlined,
                           color: Colors.grey,
                         ),
                       ),
@@ -234,7 +236,7 @@ class _playListsState extends State<playLists> {
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: Container(
           height: 423 * 0.7,
-          color: Colors.black,
+          color: bottomsheetColor,
           child: Column(
             children: [playlistform(context)],
           ),
@@ -244,13 +246,14 @@ class _playListsState extends State<playLists> {
   }
 
   Widget bottomSheetedit(BuildContext context, int index) {
+    final height = MediaQuery.of(context).size.height;
     return SingleChildScrollView(
       child: Padding(
         padding:
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: Container(
-          height: 423 * 0.7,
-          color: const Color.fromARGB(255, 24, 24, 24),
+          height: height * 0.30,
+          color: bottomsheetColor,
           child: Column(
             children: [editBottom(context, index)],
           ),
@@ -317,7 +320,7 @@ class _playListsState extends State<playLists> {
                 if (value!.trim() == '') {
                   return 'Name required';
                 }
-                if (value.trim().length > 10) {
+                if (value.trim().length > 15) {
                   return 'Enter Characters below 10 ';
                 }
 
@@ -345,10 +348,10 @@ class _playListsState extends State<playLists> {
             onPressed: () {
               Navigator.pop(context);
             },
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
+            style: ElevatedButton.styleFrom(backgroundColor: buttonColor),
             child: const Text("Cancel")),
         ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
+            style: ElevatedButton.styleFrom(backgroundColor: buttonColor),
             onPressed: () {
               final isValid = formGlobalKey.currentState!.validate();
               if (isValid) {
@@ -396,6 +399,7 @@ class _playListsState extends State<playLists> {
             Form(
               key: formGlobalKey1,
               child: TextFormField(
+                style: TextStyle(color: Colors.white),
                 controller: controller,
                 cursorHeight: 25,
                 decoration: const InputDecoration(
@@ -421,8 +425,8 @@ class _playListsState extends State<playLists> {
                   if (value!.trim() == '') {
                     return 'Name Required';
                   }
-                  if (value.trim().length > 10) {
-                    return 'Enter Characters below 10 ';
+                  if (value.trim().length > 15) {
+                    return 'Enter Characters below 15 ';
                   }
                   return null;
                 },
@@ -443,13 +447,15 @@ class _playListsState extends State<playLists> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: buttonColor,
+            ),
             onPressed: () {
               Navigator.pop(context);
             },
-            child: const Text("cancel")),
+            child: const Text("Cancel")),
         ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
+            style: ElevatedButton.styleFrom(backgroundColor: buttonColor),
             onPressed: () {
               final isValid = formGlobalKey1.currentState!.validate();
               if (isValid) {
@@ -460,7 +466,7 @@ class _playListsState extends State<playLists> {
                 Navigator.pop(context);
               }
             },
-            child: const Text("Create"))
+            child: const Text("Edit"))
       ],
     );
   }

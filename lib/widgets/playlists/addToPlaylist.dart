@@ -1,6 +1,7 @@
 // ignore: file_names
 // ignore_for_file: must_be_immutable, file_names, duplicate_ignore, prefer_final_fields
 
+import 'package:musik/Colors/colors.dart';
 import 'package:musik/model/dbfunctions.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -54,17 +55,32 @@ class _PlayScreenPlstState extends State<addToPlaylist> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                const Text(
-                                  "Create a playlist to add",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.w500),
+                                Row(
+                                  children: const [
+                                    Text(
+                                      "C",
+                                      style: TextStyle(
+                                          fontFamily: "Inter",
+                                          fontSize: 35,
+                                          fontWeight: FontWeight.w900,
+                                          color: Colors.grey),
+                                    ),
+                                    Text(
+                                      "reate a playlist.",
+                                      style: TextStyle(
+                                          fontFamily: "Inter",
+                                          fontSize: 35,
+                                          fontWeight: FontWeight.w900,
+                                          color: Colors.white),
+                                    ),
+                                  ],
                                 ),
                                 const SizedBox(
                                   height: 20,
                                 ),
                                 ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: buttonColor),
                                     onPressed: () {
                                       showModalBottomSheet(
                                         isScrollControlled: true,
@@ -79,91 +95,14 @@ class _PlayScreenPlstState extends State<addToPlaylist> {
                           ),
                         );
                       }
-                      //----------------------------------------Add to playlist--------------------------------------------------
-/*                       return Column(
-                        children: [
-                          Expanded(
-                            child: ListView.builder(
-                              itemBuilder: (context, index) {
-                                return ListTile(
-                                    title: Text(
-                                      playlist[index].playlistname.toString(),
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    onTap: () {
-                                      PlaylistSongs? plsongs =
-                                          playlistbox.getAt(index);
-                                      List<Songs>? plnewsongs =
-                                          plsongs!.playlistssongs;
-                                      Box<Songs> box = Hive.box('Songs');
-                                      List<Songs> dbAllsongs =
-                                          box.values.toList();
-                                      bool isAlreadyAdded = plnewsongs!.any(
-                                          (element) =>
-                                              element.id ==
-                                              dbAllsongs[widget.songindex].id);
-                                      if (!isAlreadyAdded) {
-                                        plnewsongs.add(Songs(
-                                            songname:
-                                                dbAllsongs[widget.songindex]
-                                                    .songname,
-                                            artist: dbAllsongs[widget.songindex]
-                                                .artist,
-                                            duration:
-                                                dbAllsongs[widget.songindex]
-                                                    .duration,
-                                            id: dbAllsongs[widget.songindex].id,
-                                            songurl:
-                                                dbAllsongs[widget.songindex]
-                                                    .songurl));
-                                        playlistbox.putAt(
-                                            index,
-                                            PlaylistSongs(
-                                                playlistname:
-                                                    playlist[index].toString(),
-                                                playlistssongs: plnewsongs));
-
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                                backgroundColor: Colors.black,
-                                                content: Text(
-                                                  '${dbAllsongs[widget.songindex].songname}Added to ${playlist[index].playlistname}',
-                                                  style: TextStyle(
-                                                      color: Colors.white),
-                                                )));
-                                        Navigator.pop(context);
-                                      } else {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                                backgroundColor: Colors.black,
-                                                content: Text(
-                                                  '${dbAllsongs[widget.songindex].songname} is already added',
-                                                  style: TextStyle(
-                                                      color: Colors.white),
-                                                )));
-                                      }
-                                      Navigator.pop(context);
-                                    });
-                              },
-                              itemCount: playlist.length,
-                            ),
-                          )
-                        ],
-                      );
-                    },
-                  ),
-                ));
-      },
-    );
-  } */
 
                       return Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Column(
                           children: [
                             Row(
-                              children: [
-                                const Text(
+                              children: const [
+                                Text(
                                   "Y",
                                   style: TextStyle(
                                       fontFamily: "Inter",
@@ -171,7 +110,7 @@ class _PlayScreenPlstState extends State<addToPlaylist> {
                                       fontWeight: FontWeight.w900,
                                       color: Colors.grey),
                                 ),
-                                const Text(
+                                Text(
                                   "our Playlists.",
                                   style: TextStyle(
                                       fontFamily: "Inter",
@@ -284,7 +223,7 @@ class _PlayScreenPlstState extends State<addToPlaylist> {
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Container(
         height: 250,
-        color: const Color.fromARGB(255, 24, 24, 24),
+        color: Colors.black,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [playlistform(context)],
@@ -299,12 +238,25 @@ class _PlayScreenPlstState extends State<addToPlaylist> {
       child: InkWell(
         child: Column(
           children: [
-            const Text(
-              "Create Playlist ",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500),
+            Row(
+              children: const [
+                Text(
+                  "C",
+                  style: TextStyle(
+                      fontFamily: "Inter",
+                      fontSize: 35,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.grey),
+                ),
+                Text(
+                  "reate playlist.",
+                  style: TextStyle(
+                      fontFamily: "Inter",
+                      fontSize: 35,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white),
+                ),
+              ],
             ),
             const SizedBox(
               height: 20,
@@ -312,17 +264,24 @@ class _PlayScreenPlstState extends State<addToPlaylist> {
             Form(
               key: formGlobalKey,
               child: TextFormField(
-                controller: _textEditingController,
-                cursorHeight: 25,
+                style: TextStyle(color: Colors.white),
                 decoration: const InputDecoration(
                   filled: true,
-                  fillColor: Color.fromARGB(199, 255, 255, 255),
-                  border: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color.fromARGB(255, 0, 0, 0))),
+                  fillColor: Colors.black,
+                  focusedErrorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red, width: 2.5)),
+                  errorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red, width: 2.5)),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey, width: 2.5)),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey, width: 2.5)),
                   hintText: "Enter a name",
-                  hintStyle: TextStyle(color: Color.fromARGB(255, 69, 69, 69)),
+                  hintStyle:
+                      TextStyle(color: Color.fromARGB(255, 137, 137, 137)),
                 ),
+                controller: _textEditingController,
+                cursorHeight: 25,
                 validator: (value) {
                   List<PlaylistSongs> values = playlistbox.values.toList();
 
@@ -333,8 +292,8 @@ class _PlayScreenPlstState extends State<addToPlaylist> {
                   if (value!.trim() == '') {
                     return 'Name required';
                   }
-                  if (value.trim().length > 10) {
-                    return 'Enter Characters below 10 ';
+                  if (value.trim().length > 15) {
+                    return 'Enter Characters below 15 ';
                   }
 
                   if (isAlreadyAdded) {
@@ -359,11 +318,13 @@ class _PlayScreenPlstState extends State<addToPlaylist> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: buttonColor),
             onPressed: () {
               Navigator.pop(context);
             },
             child: const Text("Cancel")),
         ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: buttonColor),
             onPressed: () {
               final isValid = formGlobalKey.currentState!.validate();
               if (isValid) {

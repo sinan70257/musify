@@ -2,9 +2,9 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:musik/model/songModel.dart';
-import 'package:musik/screens/HomePage.dart';
 import 'package:musik/screens/SplashScreen.dart';
 import 'package:musik/widgets/addTofavourite.dart';
+import 'package:musik/widgets/playlists/addToPlaylist.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class NowPlaying2 extends StatefulWidget {
@@ -78,17 +78,8 @@ class _NowPlaying2State extends State<NowPlaying2> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              // const SizedBox(
-              //   height: 50,
-              // ),
-              // NowPlayingClip()
               Column(
                 children: [
-                  // ClipRRect(
-                  //   borderRadius: BorderRadius.circular(12),
-                  //   child: Image.asset(
-                  //       "assets/images/The_Weeknd_-_After_Hours.png"),
-                  // ),
                   SizedBox(
                     width: 300,
                     height: 350,
@@ -102,13 +93,13 @@ class _NowPlaying2State extends State<NowPlaying2> {
                       nullArtworkWidget: ClipRRect(
                         borderRadius: BorderRadius.circular(5),
                         child: Image.asset(
-                          'assets/images/The_Weeknd_-_After_Hours.png',
+                          'assets/musify.png',
                           fit: BoxFit.cover,
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   SizedBox(
@@ -140,13 +131,7 @@ class _NowPlaying2State extends State<NowPlaying2> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.playlist_add,
-                            color: Colors.white,
-                            size: 30,
-                          )),
+                      addToPlaylist(songindex: playing.index),
                       IconButton(
                           onPressed: () {
                             setState(() {
@@ -175,7 +160,7 @@ class _NowPlaying2State extends State<NowPlaying2> {
                             player.toggleShuffle();
                           },
                           icon: player.isShuffling.value
-                              ? Icon(
+                              ? const Icon(
                                   Icons.shuffle,
                                   color: Colors.white,
                                   size: 30,
@@ -200,13 +185,14 @@ class _NowPlaying2State extends State<NowPlaying2> {
                       }))
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Column(
                     children: [
                       Container(
-                        width: 360,
+                        padding: const EdgeInsets.only(left: 30, right: 30),
+                        width: double.infinity,
                         child: PlayerBuilder.realtimePlayingInfos(
                           player: player,
                           builder: (context, RealtimePlayingInfos) {
@@ -220,11 +206,8 @@ class _NowPlaying2State extends State<NowPlaying2> {
                               progressBarColor: Colors.white,
                               thumbColor: Colors.white,
                               thumbRadius: 5,
-                              // barHeight: 1,
                               timeLabelPadding: 5,
-                              // timeLabelLocation: TimeLabelLocation.sides,
                               progress: position,
-
                               timeLabelTextStyle:
                                   TextStyle(color: Colors.white),
                               total: duration,
@@ -235,25 +218,10 @@ class _NowPlaying2State extends State<NowPlaying2> {
                             );
                           },
                         ),
-                        // child: ProgressBar(
-                        //   baseBarColor: Colors.white.withOpacity(0.5),
-                        //   progressBarColor: Colors.white,
-                        //   thumbColor: Colors.white,
-                        //   thumbRadius: 5,
-                        //   // barHeight: 1,
-                        //   timeLabelPadding: 5,
-                        //   // timeLabelLocation: TimeLabelLocation.sides,
-                        //   progress: infos.currentPosition,
-                        //   total: infos.duration,
-                        //   onSeek: (duration) {
-                        //     // print('User selected a new time: $duration');
-                        //     player.seek(duration);
-                        //   },
-                        // ),
+                        //
                       ),
                     ],
                   ),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -270,15 +238,13 @@ class _NowPlaying2State extends State<NowPlaying2> {
                                   await player.pause();
                                 }
                               },
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.skip_previous_rounded,
                                 color: Colors.white,
                               ));
                         }),
                       ),
-                      // SizedBox(
-                      //   width: 40,
-                      // ),
+
                       IconButton(
                           onPressed: () async {
                             await player.seekBy(const Duration(seconds: -10));
@@ -312,9 +278,9 @@ class _NowPlaying2State extends State<NowPlaying2> {
                       ),
                       IconButton(
                           onPressed: () async {
-                            await player.seekBy(Duration(seconds: 10));
+                            await player.seekBy(const Duration(seconds: 10));
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.forward_10,
                             color: Colors.white,
                           )),
@@ -330,7 +296,7 @@ class _NowPlaying2State extends State<NowPlaying2> {
                                     await player.pause();
                                   }
                                 },
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.skip_next_rounded,
                                   color: Colors.white,
                                 ));
