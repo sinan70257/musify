@@ -2,6 +2,9 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:musik/model/dbfunctions.dart';
+import 'package:musik/model/mostPlayed.dart';
+import 'package:musik/model/recentlyPlayed.dart';
 import 'package:musik/model/songModel.dart';
 import 'package:musik/screens/SplashScreen.dart';
 import 'package:musik/widgets/addTofavourite.dart';
@@ -22,6 +25,7 @@ class _NowPlaying2State extends State<NowPlaying2> {
   late List<Songs> dbsongs;
   bool isRepeat = false;
   bool isPlaying = false;
+  List<MostPlayed> allmostplayedsongs = mostplayedsongs.values.toList();
 
   @override
   void initState() {
@@ -307,6 +311,23 @@ class _NowPlaying2State extends State<NowPlaying2> {
                                       onPressed: () async {
                                         await player.next();
                                         setState(() {});
+                                        RecentlyPlayed rsongs;
+                                        MostPlayed MPsongs =
+                                            allmostplayedsongs[playing.index];
+                                        rsongs = RecentlyPlayed(
+                                            songname: dbsongs[playing.index + 1]
+                                                .songname,
+                                            artist: dbsongs[playing.index + 1]
+                                                .artist,
+                                            id: dbsongs[playing.index + 1].id,
+                                            duration: dbsongs[playing.index + 1]
+                                                .duration,
+                                            songurl: dbsongs[playing.index + 1]
+                                                .songurl);
+                                        updateRecentPlayed(
+                                            rsongs, playing.index + 1);
+                                        updatePlayedSongsCount(
+                                            MPsongs, playing.index + 1);
                                         if (isPlaying == false) {
                                           await player.pause();
                                         }
