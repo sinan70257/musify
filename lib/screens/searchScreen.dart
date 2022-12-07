@@ -1,7 +1,9 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:musik/model/songModel.dart';
+import 'package:musik/screens/BottomNavbar.dart';
 import 'package:musik/screens/nowPlaying2.dart';
+import 'package:musik/widgets/SearchBar.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class ScreenSearch extends StatefulWidget {
@@ -31,18 +33,23 @@ class _ScreenSearchState extends State<ScreenSearch> {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(100),
-        child: Container(
-            decoration: const BoxDecoration(color: Colors.black),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: height * 0.060,
-                ),
-                searchbar(context)
-              ],
-            )),
+      // appBar: PreferredSize(
+      //   preferredSize: Size.fromHeight(100),
+      //   child: Container(
+      //       decoration: const BoxDecoration(color: Colors.black),
+      //       child: Column(
+      //         children: [
+      //           SizedBox(
+      //             height: height * 0.060,
+      //           ),
+      //           searchbar(context)
+      //         ],
+      //       )),
+      // ),
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: searchbar(context),
+        centerTitle: true,
       ),
       backgroundColor: const Color.fromARGB(255, 21, 21, 21),
       body: SafeArea(
@@ -62,21 +69,19 @@ class _ScreenSearchState extends State<ScreenSearch> {
 
   searchbar(BuildContext context) {
     return TextFormField(
+      autofocus: true,
       style: const TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
       onTap: () {},
       controller: searchController,
       onChanged: (value) => updateList(value),
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         filled: true,
-        focusedErrorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.red, width: 2.5)),
-        errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.red, width: 2.5)),
         focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey, width: 2.5)),
+            borderRadius: BorderRadius.circular(100),
+            borderSide: BorderSide(color: Colors.grey, width: 2)),
         enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey, width: 2.5)),
-        hintText: "Search songsaq ",
+            borderSide: BorderSide(color: Colors.grey, width: 2)),
+        hintText: "Search ",
         hintStyle: TextStyle(color: Colors.grey),
       ),
     );
@@ -115,30 +120,39 @@ class _ScreenSearchState extends State<ScreenSearch> {
                       );
                     },
                     leading: QueryArtworkWidget(
-                      artworkFit: BoxFit.cover,
                       id: another[index].id!,
                       type: ArtworkType.AUDIO,
+                      artworkFit: BoxFit.cover,
                       artworkQuality: FilterQuality.high,
                       size: 2000,
                       quality: 100,
-                      artworkBorder: BorderRadius.circular(50),
+                      artworkBorder: BorderRadius.circular(10),
                       nullArtworkWidget: ClipRRect(
                         borderRadius:
-                            const BorderRadius.all(Radius.circular(50)),
+                            const BorderRadius.all(Radius.circular(10)),
                         child: Image.asset(
                           'assets/musify.png',
                           fit: BoxFit.cover,
                         ),
                       ),
                     ),
-                    title: SingleChildScrollView(
-                      child: Text(
-                        another[index].songname!,
-                        style: const TextStyle(
-                            fontSize: 13.43,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500),
+                    subtitle: Text(
+                      another[index].artist!,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontFamily: "Inter",
                       ),
+                    ),
+                    title: Text(
+                      another[index].songname!,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontFamily: "Inter",
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
                 );

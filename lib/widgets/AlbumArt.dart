@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class AlbumArt extends StatelessWidget {
-  const AlbumArt(
+  AlbumArt(
       {super.key,
       required this.imageName,
       required this.head,
-      required this.song});
+      this.song = " "});
   final String imageName;
   final String head;
-  final int song;
+  late String song;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class AlbumArt extends StatelessWidget {
               height: 50,
               width: 150,
               decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.8),
+                  color: Colors.white.withOpacity(0.7),
                   borderRadius: BorderRadius.circular(10)),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
