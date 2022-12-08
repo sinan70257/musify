@@ -134,7 +134,7 @@ class _recentlyPlayedState extends State<recentlyPlayed> {
                     nullArtworkWidget: ClipRRect(
                       borderRadius: const BorderRadius.all(Radius.circular(10)),
                       child: Image.asset(
-                        'assets/musify.png',
+                        'assets/images/musify copy0.jpg',
                         fit: BoxFit.cover,
                       ),
                     ),

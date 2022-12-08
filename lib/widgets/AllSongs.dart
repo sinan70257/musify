@@ -1,6 +1,7 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:musik/Colors/colors.dart';
 import 'package:musik/model/dbfunctions.dart';
 import 'package:musik/model/mostPlayed.dart';
 import 'package:musik/model/recentlyPlayed.dart';
@@ -85,7 +86,7 @@ class _allSongsScreenState extends State<allSongsScreen> {
                       // updatePlayedSongsCount(MPsongs, index);
                       _audioPlayer.open(
                           Playlist(audios: convertAudios, startIndex: index),
-                          showNotification: true,
+                          showNotification: notificationStatus,
                           headPhoneStrategy:
                               HeadPhoneStrategy.pauseOnUnplugPlayOnPlug,
                           loopMode: LoopMode.playlist);
@@ -107,7 +108,7 @@ class _allSongsScreenState extends State<allSongsScreen> {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(10)),
                         child: Image.asset(
-                          'assets/musify.png',
+                          'assets/images/musify copy0.jpg',
                           fit: BoxFit.cover,
                         ),
                       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:musik/Colors/colors.dart';
 
 class NotificationList extends StatefulWidget {
   const NotificationList({super.key, required this.title, required this.logo});
@@ -31,23 +32,32 @@ class _NotificationListState extends State<NotificationList> {
                 fontFamily: "Inter",
                 fontSize: 18),
           ),
-          trailing: Container(
-            width: 40,
-            height: 30,
-            child: FlutterSwitch(
-              activeColor: Colors.white,
-              toggleColor: Colors.black,
-              width: 55.0,
-              height: 25.0,
-              valueFontSize: 12.0,
-              toggleSize: 18.0,
-              value: status,
-              onToggle: (val) {
-                setState(() {
-                  status = val;
-                });
-              },
-            ),
+          // trailing: SizedBox(
+          //   width: 40,
+          //   height: 30,
+          //   child: FlutterSwitch(
+          //     activeColor: Colors.white,
+          //     toggleColor: Colors.black,
+          //     width: 55.0,
+          //     height: 25.0,
+          //     valueFontSize: 12.0,
+          //     toggleSize: 18.0,
+          //     value: true,
+          //     onToggle: (val) {
+          //       setState(() {
+          //         status = val;
+          //       });
+          //     },
+          //   ),
+          // ),
+          trailing: Switch(
+            value: notificationStatus,
+            onChanged: (value) {
+              setState(() {
+                notificationStatus = value;
+                print(notificationStatus);
+              });
+            },
           ),
         ),
       ],

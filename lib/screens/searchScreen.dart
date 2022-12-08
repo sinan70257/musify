@@ -1,5 +1,6 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:musik/Colors/colors.dart';
 import 'package:musik/model/songModel.dart';
 import 'package:musik/screens/BottomNavbar.dart';
 import 'package:musik/screens/nowPlaying2.dart';
@@ -108,7 +109,7 @@ class _ScreenSearchState extends State<ScreenSearch> {
                     onTap: () {
                       _audioPlayer.open(
                           Playlist(audios: allSongs, startIndex: index),
-                          showNotification: true,
+                          showNotification: notificationStatus,
                           headPhoneStrategy: HeadPhoneStrategy.pauseOnUnplug,
                           loopMode: LoopMode.playlist);
                       setState(() {});
@@ -131,7 +132,7 @@ class _ScreenSearchState extends State<ScreenSearch> {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(10)),
                         child: Image.asset(
-                          'assets/musify.png',
+                          'assets/images/musify copy0.jpg',
                           fit: BoxFit.cover,
                         ),
                       ),

@@ -1,6 +1,5 @@
 // ignore: file_names
 // ignore_for_file: must_be_immutable, file_names, duplicate_ignore, prefer_final_fields
-
 import 'package:musik/Colors/colors.dart';
 import 'package:musik/model/dbfunctions.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +29,7 @@ class _PlayScreenPlstState extends State<addToPlaylist> {
         },
         icon: const Icon(
           Icons.playlist_add,
-          color: Colors.white,
+          color: Colors.grey,
         ));
   }
 

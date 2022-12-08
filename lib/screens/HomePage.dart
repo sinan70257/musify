@@ -60,10 +60,7 @@ class _HomePageState extends State<HomePage> {
         child: Padding(
           padding: const EdgeInsets.only(left: 8, right: 8),
           child: Column(
-            children: [
-              Cards(),
-              allSongsScreen(),
-            ],
+            children: [Cards(), allSongsScreen(), endsongs(width)],
           ),
         ),
       ),
@@ -78,24 +75,14 @@ class _HomePageState extends State<HomePage> {
     ));
   }
 
-  // ConcatenatingAudioSource createPlaylist(List<SongModel> songs) {
-  //   List<AudioSource> scources = [];
-
-  //   for (var song in songs) {
-  //     setState(() {});
-  //     scources.add(AudioSource.uri(
-  //       Uri.parse(song.uri!),
-  //       tag: MediaItem(
-  //         // Specify a unique ID for each media item:
-  //         id: "${songs[currentIndex].id}",
-  //         // Metadata to display in the notification:
-  //         album: "${songs[currentIndex].album}",
-  //         title: songs[currentIndex].displayNameWOExt,
-  //         // artUri: Uri.parse(''),
-  //       ),
-  //     ));
-  //   }
-  //   return ConcatenatingAudioSource(children: scources);
-  // }
-
+  SizedBox endsongs(double width) {
+    return SizedBox(
+        height: 100,
+        width: width,
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: Text("End of songs...",
+              style: const TextStyle(color: Colors.grey)),
+        ));
+  }
 }

@@ -2,6 +2,7 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:musik/Colors/colors.dart';
 import 'package:musik/model/dbfunctions.dart';
 import 'package:musik/model/favouriteModel.dart';
 import 'package:musik/screens/BottomNavbar.dart';
@@ -115,7 +116,7 @@ class _FavouritesState extends State<Favourites> {
                     onTap: (() {
                       audioPlayer.open(
                           Playlist(audios: allsongs, startIndex: index),
-                          showNotification: true,
+                          showNotification: notificationStatus,
                           headPhoneStrategy: HeadPhoneStrategy.pauseOnUnplug,
                           loopMode: LoopMode.playlist);
                       setState(() {
@@ -136,7 +137,7 @@ class _FavouritesState extends State<Favourites> {
                       nullArtworkWidget: ClipRRect(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                         child: Image.asset(
-                          'assets/musify.png',
+                          'assets/images/musify copy0.jpg',
                           fit: BoxFit.cover,
                         ),
                       ),

@@ -71,7 +71,7 @@ class _FloatingControllerState extends State<FloatingController> {
                     artworkFit: BoxFit.cover,
                     nullArtworkWidget: ClipRect(
                       child: Image.asset(
-                        "assets/musify.png",
+                        "assets/images/musify copy0.jpg",
                         fit: BoxFit.cover,
                         width: 60,
                         height: 60,
@@ -131,6 +131,9 @@ class _FloatingControllerState extends State<FloatingController> {
                           ),
                           IconButton(
                             onPressed: () async {
+                              if (playing.index == allDbdongs.length - 1) {
+                                player.playlistPlayAtIndex(-1);
+                              }
                               await player.next();
                               setState(() {});
                               if (isPlaying == false) {

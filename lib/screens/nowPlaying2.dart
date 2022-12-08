@@ -2,6 +2,7 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:marquee/marquee.dart';
 import 'package:musik/model/dbfunctions.dart';
 import 'package:musik/model/mostPlayed.dart';
 import 'package:musik/model/recentlyPlayed.dart';
@@ -102,7 +103,7 @@ class _NowPlaying2State extends State<NowPlaying2> {
                             nullArtworkWidget: ClipRRect(
                               borderRadius: BorderRadius.circular(5),
                               child: Image.asset(
-                                'assets/musify.png',
+                                'assets/images/musify copy0.jpg',
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -112,11 +113,12 @@ class _NowPlaying2State extends State<NowPlaying2> {
                           height: 20,
                         ),
                         SizedBox(
-                          width: width * 0.75,
-                          child: Text(
-                            player.getCurrentAudioTitle,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.center,
+                          width: width * 0.8,
+                          height: height * .03,
+                          child: Marquee(
+                            text: player.getCurrentAudioTitle,
+                            blankSpace: 80,
+                            velocity: 50,
                             style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 30,

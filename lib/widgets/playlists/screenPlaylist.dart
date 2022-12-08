@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:musik/Colors/colors.dart';
 import 'package:musik/model/dbfunctions.dart';
 import 'package:musik/model/playlistmodel.dart';
 import 'package:musik/model/songModel.dart';
@@ -125,7 +126,8 @@ class _ScreenPlaylistState extends State<ScreenPlaylist> {
                 return ListTile(
                   onTap: () {
                     player.open(Playlist(audios: plstsongs, startIndex: index),
-                        showNotification: true, loopMode: LoopMode.playlist);
+                        showNotification: notificationStatus,
+                        loopMode: LoopMode.playlist);
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const NowPlaying2(),
                     ));
@@ -143,7 +145,7 @@ class _ScreenPlaylistState extends State<ScreenPlaylist> {
                     nullArtworkWidget: ClipRRect(
                       borderRadius: const BorderRadius.all(Radius.circular(50)),
                       child: Image.asset(
-                        'assets/musify.png',
+                        'assets/images/musify copy0.jpg',
                         fit: BoxFit.cover,
                       ),
                     ),
