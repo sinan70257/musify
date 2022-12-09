@@ -121,6 +121,8 @@ class _ScreenSearchState extends State<ScreenSearch> {
                       );
                     },
                     leading: QueryArtworkWidget(
+                      artworkHeight: 55,
+                      artworkWidth: 55,
                       id: another[index].id!,
                       type: ArtworkType.AUDIO,
                       artworkFit: BoxFit.cover,

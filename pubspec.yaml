@@ -42,9 +42,11 @@ dependencies:
   audio_video_progress_bar: ^0.11.0
   assets_audio_player: ^3.0.5
   hive: ^2.2.1
+  share_plus: ^6.1.0
   shared_preferences: ^2.0.15
   hive_flutter: ^1.1.0
   on_audio_query: ^2.6.1
+  flutter_markdown: ^0.6.12
 
 
   marquee: ^2.2.1

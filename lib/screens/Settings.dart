@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:musik/widgets/SettingList2.dart';
+
 import 'package:musik/widgets/SettingsList.dart';
 
 import '../widgets/FloatingControler.dart';
@@ -35,7 +35,7 @@ class Settings extends StatelessWidget {
         ),
       ),
       backgroundColor: Colors.black,
-      body: SettingList2(),
+      body: SettingsList(),
       // bottomSheet: FloatingController(),
     );
   }

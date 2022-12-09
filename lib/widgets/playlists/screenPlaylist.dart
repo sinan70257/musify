@@ -135,6 +135,8 @@ class _ScreenPlaylistState extends State<ScreenPlaylist> {
                     MaterialPageRoute(builder: ((context) => playingNow()))); */
                   },
                   leading: QueryArtworkWidget(
+                    artworkHeight: 55,
+                    artworkWidth: 55,
                     artworkFit: BoxFit.cover,
                     id: songs[index].id!,
                     type: ArtworkType.AUDIO,

@@ -128,6 +128,8 @@ class _FavouritesState extends State<Favourites> {
                               builder: ((context) => NowPlaying2())));
                     }),
                     leading: QueryArtworkWidget(
+                      artworkHeight: 55,
+                      artworkWidth: 55,
                       id: allDbsongs[index].id!,
                       type: ArtworkType.AUDIO,
                       artworkFit: BoxFit.cover,

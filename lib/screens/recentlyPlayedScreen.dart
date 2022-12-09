@@ -124,6 +124,8 @@ class _recentlyPlayedState extends State<recentlyPlayed> {
                 return ListTile(
                   onTap: () {},
                   leading: QueryArtworkWidget(
+                    artworkHeight: 55,
+                    artworkWidth: 55,
                     id: rsongs[index].id!,
                     type: ArtworkType.AUDIO,
                     artworkFit: BoxFit.cover,

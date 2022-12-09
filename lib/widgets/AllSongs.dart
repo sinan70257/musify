@@ -97,6 +97,8 @@ class _allSongsScreenState extends State<allSongsScreen> {
                               builder: ((context) => NowPlaying2())));
                     }),
                     leading: QueryArtworkWidget(
+                      artworkHeight: 55,
+                      artworkWidth: 55,
                       id: songs.id!,
                       type: ArtworkType.AUDIO,
                       artworkFit: BoxFit.cover,

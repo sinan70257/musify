@@ -123,11 +123,13 @@ class _mostlyPlayedState extends State<mostlyPlayed> {
                         );
                       }),
                       leading: QueryArtworkWidget(
+                        artworkHeight: 55,
+                        artworkWidth: 55,
                         id: finalpmsongs[index].id,
                         type: ArtworkType.AUDIO,
                         artworkFit: BoxFit.cover,
                         artworkQuality: FilterQuality.high,
-                        size: 2000,
+                        size: 200,
                         quality: 100,
                         artworkBorder: BorderRadius.circular(10),
                         nullArtworkWidget: ClipRRect(
