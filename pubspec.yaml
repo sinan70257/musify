@@ -47,11 +47,10 @@ dependencies:
   hive_flutter: ^1.1.0
   on_audio_query: ^2.6.1
   flutter_markdown: ^0.6.12
-
-
   marquee: ^2.2.1
- 
   switcher_button: ^0.0.4
+  custom_navigation_bar: ^0.8.2
+  bottom_navy_bar: ^6.0.0
 
   
 

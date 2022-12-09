@@ -31,4 +31,4 @@ These terms and conditions are effective as of 2022-10-26
 
 **Contact Us**
 
-If you have any questions or suggestions about my Terms and Conditions, do not hesitate to contact me at connect.Sinan70257@gmail.com.
+If you have any questions or suggestions about my Terms and Conditions, do not hesitate to contact me at connect Sinan70257@gmail.com.

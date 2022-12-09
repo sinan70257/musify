@@ -51,6 +51,9 @@ class _NotificationListState extends State<NotificationList> {
           //   ),
           // ),
           trailing: Switch(
+            activeTrackColor: Colors.white,
+            activeColor: Colors.grey,
+            inactiveTrackColor: Colors.grey,
             value: notificationStatus,
             onChanged: (value) {
               setState(() {

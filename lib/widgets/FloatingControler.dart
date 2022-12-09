@@ -69,12 +69,11 @@ class _FloatingControllerState extends State<FloatingController> {
                     size: 2000,
                     quality: 100,
                     artworkFit: BoxFit.cover,
-                    nullArtworkWidget: ClipRect(
+                    nullArtworkWidget: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
                       child: Image.asset(
-                        "assets/images/musify copy0.jpg",
+                        'assets/images/musify copy0.jpg',
                         fit: BoxFit.cover,
-                        width: 60,
-                        height: 60,
                       ),
                     ),
                   ),

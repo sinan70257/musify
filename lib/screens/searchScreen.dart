@@ -2,9 +2,7 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:musik/Colors/colors.dart';
 import 'package:musik/model/songModel.dart';
-import 'package:musik/screens/BottomNavbar.dart';
 import 'package:musik/screens/nowPlaying2.dart';
-import 'package:musik/widgets/SearchBar.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class ScreenSearch extends StatefulWidget {
@@ -34,20 +32,8 @@ class _ScreenSearchState extends State<ScreenSearch> {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
-      // appBar: PreferredSize(
-      //   preferredSize: Size.fromHeight(100),
-      //   child: Container(
-      //       decoration: const BoxDecoration(color: Colors.black),
-      //       child: Column(
-      //         children: [
-      //           SizedBox(
-      //             height: height * 0.060,
-      //           ),
-      //           searchbar(context)
-      //         ],
-      //       )),
-      // ),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.black,
         title: searchbar(context),
         centerTitle: true,
@@ -56,8 +42,6 @@ class _ScreenSearchState extends State<ScreenSearch> {
       body: SafeArea(
         child: Column(
           children: [
-            // Padding(
-            //     padding: const EdgeInsets.all(8), child: searchbar(context)),
             const SizedBox(
               height: 10,
             ),
@@ -78,12 +62,12 @@ class _ScreenSearchState extends State<ScreenSearch> {
       decoration: InputDecoration(
         filled: true,
         focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(100),
-            borderSide: BorderSide(color: Colors.grey, width: 2)),
-        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: Colors.grey, width: 2)),
+        enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey, width: 2)),
         hintText: "Search ",
-        hintStyle: TextStyle(color: Colors.grey),
+        hintStyle: const TextStyle(color: Colors.grey),
       ),
     );
   }
