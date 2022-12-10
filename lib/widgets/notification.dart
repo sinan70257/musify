@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:musik/colors/colors.dart';
 
 class NotificationList extends StatefulWidget {
@@ -26,30 +25,12 @@ class _NotificationListState extends State<NotificationList> {
           ),
           title: Text(
             widget.title,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
                 fontFamily: "Inter",
                 fontSize: 18),
           ),
-          // trailing: SizedBox(
-          //   width: 40,
-          //   height: 30,
-          //   child: FlutterSwitch(
-          //     activeColor: Colors.white,
-          //     toggleColor: Colors.black,
-          //     width: 55.0,
-          //     height: 25.0,
-          //     valueFontSize: 12.0,
-          //     toggleSize: 18.0,
-          //     value: true,
-          //     onToggle: (val) {
-          //       setState(() {
-          //         status = val;
-          //       });
-          //     },
-          //   ),
-          // ),
           trailing: Switch(
             activeTrackColor: Colors.white,
             activeColor: Colors.grey,
@@ -58,7 +39,6 @@ class _NotificationListState extends State<NotificationList> {
             onChanged: (value) {
               setState(() {
                 notificationStatus = value;
-                print(notificationStatus);
               });
             },
           ),
