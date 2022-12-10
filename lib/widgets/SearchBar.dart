@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:musik/screens/searchScreen.dart';
+import 'package:musik/screens/search_screen.dart';
 
 class SearchBar extends StatelessWidget {
   const SearchBar({super.key});

@@ -1,6 +1,6 @@
 // ignore_for_file: camel_case_types, prefer_final_fields, non_constant_identifier_names, unused_local_variable
 
-import 'package:musik/Colors/colors.dart';
+import 'package:musik/colors/colors.dart';
 import 'package:musik/model/dbfunctions.dart';
 import 'package:musik/model/playlistmodel.dart';
 import 'package:flutter/material.dart';

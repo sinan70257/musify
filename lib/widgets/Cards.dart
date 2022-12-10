@@ -4,11 +4,11 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:musik/model/dbfunctions.dart';
 import 'package:musik/model/favouriteModel.dart';
 import 'package:musik/model/mostPlayed.dart';
-import 'package:musik/screens/Favourites.dart';
-import 'package:musik/screens/Playlists.dart';
-import 'package:musik/screens/mostlyPlayed.dart';
-import 'package:musik/screens/recentlyPlayedScreen.dart';
-import 'package:musik/widgets/AlbumArt.dart';
+import 'package:musik/screens/favourite_screen.dart';
+import 'package:musik/screens/playlists.dart';
+import 'package:musik/screens/most_played.dart';
+import 'package:musik/screens/recent_played.dart';
+import 'package:musik/widgets/albumArt.dart';
 
 class Cards extends StatelessWidget {
   const Cards({super.key});

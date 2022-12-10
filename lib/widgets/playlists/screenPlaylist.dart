@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:musik/Colors/colors.dart';
+import 'package:musik/colors/colors.dart';
 import 'package:musik/model/dbfunctions.dart';
 import 'package:musik/model/playlistmodel.dart';
 import 'package:musik/model/songModel.dart';
@@ -9,7 +9,7 @@ import 'package:musik/model/songModel.dart';
 import 'package:flutter/material.dart';
 
 import 'package:hive_flutter/adapters.dart';
-import 'package:musik/screens/nowPlaying2.dart';
+import 'package:musik/screens/now_playing.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class ScreenPlaylist extends StatefulWidget {

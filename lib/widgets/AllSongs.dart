@@ -1,13 +1,13 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:musik/Colors/colors.dart';
+import 'package:musik/colors/colors.dart';
 import 'package:musik/model/dbfunctions.dart';
 import 'package:musik/model/mostPlayed.dart';
 import 'package:musik/model/recentlyPlayed.dart';
 import 'package:musik/model/songModel.dart';
-import 'package:musik/screens/nowPlaying2.dart';
-import 'package:musik/screens/recentlyPlayedScreen.dart';
+import 'package:musik/screens/now_playing.dart';
+import 'package:musik/screens/recent_played.dart';
 import 'package:musik/widgets/playlists/addToPlaylist.dart';
 import 'package:musik/widgets/addTofavourite.dart';
 import 'package:on_audio_query/on_audio_query.dart';

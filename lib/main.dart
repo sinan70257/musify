@@ -7,7 +7,7 @@ import 'package:musik/model/mostPlayed.dart';
 import 'package:musik/model/playlistmodel.dart';
 import 'package:musik/model/recentlyPlayed.dart';
 import 'package:musik/model/songModel.dart';
-import 'package:musik/screens/SplashScreen.dart';
+import 'package:musik/screens/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,12 +41,10 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      // title: "Musify",
       theme: ThemeData(
         primaryColor: Colors.white,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-
       home: Splash(),
     );
   }

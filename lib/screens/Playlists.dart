@@ -1,5 +1,5 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:musik/widgets/FloatingControler.dart';
 import 'package:musik/widgets/playlists/playlistScreen.dart';
 
 class Playlists extends StatelessWidget {

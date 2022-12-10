@@ -3,7 +3,7 @@ import 'package:musik/model/favouriteModel.dart';
 import 'package:musik/model/mostPlayed.dart';
 import 'package:musik/model/playlistmodel.dart';
 import 'package:musik/model/recentlyPlayed.dart';
-import 'package:musik/screens/mostlyPlayed.dart';
+import 'package:musik/screens/most_played.dart';
 
 late Box<favsongs> favsongsdb;
 opendb_fav() async {

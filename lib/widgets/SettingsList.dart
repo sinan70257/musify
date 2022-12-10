@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:musik/widgets/NotificationList.dart';
+import 'package:musik/widgets/notification.dart';
 import 'package:musik/widgets/popUp.dart';
 import 'package:share_plus/share_plus.dart';
 
