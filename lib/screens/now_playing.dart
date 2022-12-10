@@ -56,16 +56,6 @@ class _NowPlaying2State extends State<NowPlaying2> {
                       Icons.arrow_back,
                       color: Colors.white,
                     )),
-                // leading: IconButton(
-                //     onPressed: () {
-                //       // Navigator.of(context).push(
-                //       //     MaterialPageRoute(builder: ((context) => HomePage())));
-                //     },
-                //     icon: const Icon(
-                //       Icons.arrow_circle_left_outlined,
-                //       color: Colors.white,
-                //       size: 40,
-                //     )),
                 centerTitle: true,
                 backgroundColor: Colors.black,
                 title: const Text(
@@ -74,26 +64,32 @@ class _NowPlaying2State extends State<NowPlaying2> {
                       color: Colors.white,
                       fontFamily: "Inter",
                       fontWeight: FontWeight.bold,
-                      fontSize: 25),
+                      fontSize: 30),
                 ),
               ),
               backgroundColor: Colors.black,
               body: Center(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         SizedBox(
-                          width: 300,
-                          height: 350,
+                          height: height * 0.06,
+                        ),
+                        SizedBox(
+                          width: width * 0.75,
+                          height: height * 0.40,
                           child: QueryArtworkWidget(
+                            size: 2000,
+                            quality: 100,
                             id: int.parse(playing.audio.audio.metas.id!),
                             artworkQuality: FilterQuality.high,
                             type: ArtworkType.AUDIO,
-                            artworkHeight: 300,
-                            artworkWidth: 350,
-                            artworkBorder: BorderRadius.circular(5),
+                            artworkHeight: height * 0.40,
+                            artworkWidth: width * 0.75,
+                            artworkBorder: BorderRadius.circular(10),
                             artworkFit: BoxFit.cover,
                             nullArtworkWidget: ClipRRect(
                               borderRadius: BorderRadius.circular(5),
@@ -104,16 +100,16 @@ class _NowPlaying2State extends State<NowPlaying2> {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 20,
+                        SizedBox(
+                          height: height * 0.04,
                         ),
                         SizedBox(
                           width: width * 0.8,
                           height: height * .04,
                           child: Marquee(
                             text: player.getCurrentAudioTitle,
-                            blankSpace: 80,
-                            velocity: 50,
+                            blankSpace: 70,
+                            velocity: 60,
                             style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 30,
@@ -131,8 +127,8 @@ class _NowPlaying2State extends State<NowPlaying2> {
                             fontFamily: "Inter",
                           ),
                         ),
-                        const SizedBox(
-                          height: 20,
+                        SizedBox(
+                          height: height * 0.025,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

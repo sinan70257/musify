@@ -78,7 +78,6 @@ class _playListsState extends State<playLists> {
     );
   }
 
-  //----------------------------------------LIST OF PLAYLISTS--------------------------------------------------
   PlaylistList() {
     if (playlist.isEmpty) {
       const Padding(
@@ -129,97 +128,107 @@ class _playListsState extends State<playLists> {
                     ),
                   );
                 }
-                return ListTile(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: ((context) => ScreenPlaylist(
-                              allPlaylistSongs: playlist[index].playlistssongs!,
-                              playlistindex: index,
-                              playlistname: playlist[index].playlistname!)))),
-                  leading: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    child: Image.asset(
-                      'assets/musify.png',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  // leading: Icon(
-                  //   Icons.queue_music_rounded,
-                  //   color: Colors.white,
-                  //   size: 35,
-                  // ),
-                  title: Text(
-                    playlist[index].playlistname.toString(),
-                    style: const TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            showModalBottomSheet(
-                              context: context,
-                              builder: (context) =>
-                                  bottomSheetedit(context, index),
-                            );
-                          },
-                          icon: const Icon(
-                            Icons.edit_outlined,
-                            color: Colors.grey,
-                          )),
-                      IconButton(
-                        onPressed: (() {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                backgroundColor:
-                                    Color.fromARGB(255, 50, 50, 50),
-                                title: const Text(
-                                  "Delete Playlist",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                content: const Text(
-                                  "Are You Sure ?",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                actions: [
-                                  TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: Text("Cancel",
-                                          style: TextStyle(
-                                              color: Color.fromARGB(
-                                                  255, 213, 213, 213)))),
-                                  TextButton(
-                                      onPressed: () {
-                                        playlistbox.deleteAt(index);
-                                        Navigator.pop(context);
-                                      },
-                                      child: Text("Delete",
-                                          style: TextStyle(
-                                              color: Color.fromARGB(
-                                                  255, 213, 213, 213))))
-                                ],
-                              );
-                            },
-                          );
-                        }),
-                        icon: const Icon(
-                          Icons.delete_outlined,
-                          color: Colors.grey,
+                return Column(
+                  children: [
+                    ListTile(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => ScreenPlaylist(
+                                  allPlaylistSongs:
+                                      playlist[index].playlistssongs!,
+                                  playlistindex: index,
+                                  playlistname:
+                                      playlist[index].playlistname!)))),
+                      leading: ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
+                        child: Image.asset(
+                          'assets/musify.png',
+                          fit: BoxFit.cover,
                         ),
                       ),
-                    ],
-                  ),
+                      // leading: Icon(
+                      //   Icons.queue_music_rounded,
+                      //   color: Colors.white,
+                      //   size: 35,
+                      // ),
+                      title: Text(
+                        playlist[index].playlistname.toString(),
+                        style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) =>
+                                      bottomSheetedit(context, index),
+                                );
+                              },
+                              icon: const Icon(
+                                Icons.edit_outlined,
+                                color: Colors.grey,
+                              )),
+                          IconButton(
+                            onPressed: (() {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    backgroundColor:
+                                        Color.fromARGB(255, 50, 50, 50),
+                                    title: const Text(
+                                      "Delete Playlist",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    content: const Text(
+                                      "Are You Sure ?",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text("Cancel",
+                                              style: TextStyle(
+                                                  color: Color.fromARGB(
+                                                      255, 213, 213, 213)))),
+                                      TextButton(
+                                          onPressed: () {
+                                            playlistbox.deleteAt(index);
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text("Delete",
+                                              style: TextStyle(
+                                                  color: Color.fromARGB(
+                                                      255, 213, 213, 213))))
+                                    ],
+                                  );
+                                },
+                              );
+                            }),
+                            icon: const Icon(
+                              Icons.delete_outlined,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    )
+                  ],
                 );
               }),
             ),

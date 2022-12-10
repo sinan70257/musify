@@ -65,14 +65,14 @@ class _FavouritesState extends State<Favourites> {
                   fontFamily: "Inter",
                   fontWeight: FontWeight.bold,
                   color: Colors.grey,
-                  fontSize: 25),
+                  fontSize: 35),
             ),
             Text(
               "avourites",
               style: TextStyle(
                   fontFamily: "Inter",
                   fontWeight: FontWeight.bold,
-                  fontSize: 25),
+                  fontSize: 35),
             ),
           ],
         ),

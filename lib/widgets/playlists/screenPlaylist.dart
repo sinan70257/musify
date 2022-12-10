@@ -131,8 +131,6 @@ class _ScreenPlaylistState extends State<ScreenPlaylist> {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const NowPlaying2(),
                     ));
-                    /* Navigator.push(context,
-                    MaterialPageRoute(builder: ((context) => playingNow()))); */
                   },
                   leading: QueryArtworkWidget(
                     artworkHeight: 55,
