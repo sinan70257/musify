@@ -2,40 +2,38 @@
 
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:musik/Bloc/recently_played/recently_played_bloc.dart';
 import 'package:musik/model/dbfunctions.dart';
 import 'package:musik/model/mostPlayed.dart';
 import 'package:musik/model/recentlyPlayed.dart';
-import 'package:musik/screens/bottom_navbar.dart';
-import 'package:musik/widgets/addTofavourite.dart';
-import 'package:musik/widgets/playlists/addToPlaylist.dart';
+import 'package:musik/screens/other_screen/bottom_navbar.dart';
+import 'package:musik/screens/favourite_screen/widgets/addTofavourite.dart';
+import 'package:musik/screens/playlist_screen/widgets/addToPlaylist.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class recentlyPlayed extends StatefulWidget {
-  const recentlyPlayed({super.key});
+class recentlyPlayed extends StatelessWidget {
+  recentlyPlayed({super.key});
 
   @override
-  State<recentlyPlayed> createState() => _recentlyPlayedState();
-}
-
-class _recentlyPlayedState extends State<recentlyPlayed> {
   AssetsAudioPlayer player = AssetsAudioPlayer.withId("0");
   List<Audio> resongs = [];
 
   @override
-  void initState() {
-    List<RecentlyPlayed> rdbsongs =
-        recentlyplayedbox.values.toList().reversed.toList();
-    for (var item in rdbsongs) {
-      resongs.add(Audio.file(item.songurl!,
-          metas: Metas(
-            artist: item.songname,
-            title: item.artist,
-            id: item.id.toString(),
-          )));
-    }
-    super.initState();
-  }
+  // void initState() {
+  //   List<RecentlyPlayed> rdbsongs =
+  //       recentlyplayedbox.values.toList().reversed.toList();
+  //   for (var item in rdbsongs) {
+  //     resongs.add(Audio.file(item.songurl!,
+  //         metas: Metas(
+  //           artist: item.songname,
+  //           title: item.artist,
+  //           id: item.id.toString(),
+  //         )));
+  //   }
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -77,12 +75,16 @@ class _recentlyPlayedState extends State<recentlyPlayed> {
         ),
       ),
       backgroundColor: const Color.fromARGB(255, 21, 21, 21),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [Recentlist()],
-          ),
-        ),
+      body: BlocBuilder<RecentlyPlayedBloc, RecentlyPlayedState>(
+        builder: (context, state) {
+          return SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [Recentlist()],
+              ),
+            ),
+          );
+        },
       ),
     );
   }

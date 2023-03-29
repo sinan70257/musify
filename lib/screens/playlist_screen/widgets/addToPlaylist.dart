@@ -4,8 +4,8 @@ import 'package:musik/colors/colors.dart';
 import 'package:musik/model/dbfunctions.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import '../../model/playlistmodel.dart';
-import '../../model/songModel.dart';
+import '../../../model/playlistmodel.dart';
+import '../../../model/songModel.dart';
 
 class addToPlaylist extends StatefulWidget {
   int songindex;

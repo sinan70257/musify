@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:musik/colors/colors.dart';
 import 'package:musik/model/dbfunctions.dart';
 import 'package:musik/model/playlistmodel.dart';
@@ -9,7 +10,7 @@ import 'package:musik/model/songModel.dart';
 import 'package:flutter/material.dart';
 
 import 'package:hive_flutter/adapters.dart';
-import 'package:musik/screens/now_playing.dart';
+import 'package:musik/screens/nowplaying_screen/now_playing.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class ScreenPlaylist extends StatefulWidget {
@@ -129,7 +130,7 @@ class _ScreenPlaylistState extends State<ScreenPlaylist> {
                         showNotification: notificationStatus,
                         loopMode: LoopMode.playlist);
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const NowPlaying2(),
+                      builder: (context) => NowPlaying2(),
                     ));
                   },
                   leading: QueryArtworkWidget(
@@ -174,12 +175,13 @@ class _ScreenPlaylistState extends State<ScreenPlaylist> {
                         context: context,
                         builder: (context) {
                           return AlertDialog(
-                            backgroundColor: Color.fromARGB(255, 50, 50, 50),
+                            backgroundColor:
+                                const Color.fromARGB(255, 50, 50, 50),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
                             title: const Text(
-                              "Delete Playlist",
+                              "Delete song from playlist",
                               style: TextStyle(color: Colors.white),
                             ),
                             content: const Text(
@@ -197,6 +199,7 @@ class _ScreenPlaylistState extends State<ScreenPlaylist> {
                                               255, 213, 213, 213)))),
                               TextButton(
                                   onPressed: () {
+                                    Navigator.pop(context);
                                     setState(() {
                                       songs.removeAt(index);
                                       plsongs.removeAt(index);
@@ -205,10 +208,17 @@ class _ScreenPlaylistState extends State<ScreenPlaylist> {
                                           PlaylistSongs(
                                               playlistname: widget.playlistname,
                                               playlistssongs: songs));
-                                      // Navigator.pop(context);
+                                      initState();
                                     });
-                                    setState(() {});
-                                    Navigator.pop(context);
+                                    // setState(() {
+
+                                    // update();
+                                    // setState(() {
+                                    //   plsongs = playlistbox.values.toList();
+                                    // });
+
+                                    // Navigator.pop(context);
+                                    // });
                                   },
                                   child: const Text("Delete",
                                       style: TextStyle(
@@ -229,5 +239,16 @@ class _ScreenPlaylistState extends State<ScreenPlaylist> {
             ),
           );
         });
+  }
+
+  void update() {
+    widget.allPlaylistSongs = [];
+    for (var song in widget.allPlaylistSongs) {
+      plstsongs.add(Audio.file(song.songurl.toString(),
+          metas: Metas(
+              title: song.songname,
+              artist: song.artist,
+              id: song.id.toString())));
+    }
   }
 }

@@ -4,10 +4,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:musik/model/dbfunctions.dart';
 import 'package:musik/model/favouriteModel.dart';
 import 'package:musik/model/mostPlayed.dart';
-import 'package:musik/screens/favourite_screen.dart';
-import 'package:musik/screens/playlists.dart';
-import 'package:musik/screens/most_played.dart';
-import 'package:musik/screens/recent_played.dart';
+import 'package:musik/screens/favourite_screen/favourite_screen.dart';
+import 'package:musik/screens/playlist_screen/playlists.dart';
+import 'package:musik/screens/mostplayed_screen/most_played.dart';
+import 'package:musik/screens/recentplayed_screen/recent_played.dart';
 import 'package:musik/widgets/albumArt.dart';
 
 class Cards extends StatelessWidget {

@@ -4,8 +4,8 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:musik/model/songModel.dart';
-import 'package:musik/screens/splash_screen.dart';
-import 'package:musik/screens/now_playing.dart';
+import 'package:musik/screens/other_screen/splash_screen.dart';
+import 'package:musik/screens/nowplaying_screen/now_playing.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class FloatingController extends StatefulWidget {

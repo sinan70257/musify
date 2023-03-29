@@ -5,7 +5,7 @@ import 'package:musik/model/dbfunctions.dart';
 import 'package:musik/model/playlistmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:musik/widgets/playlists/screenPlaylist.dart';
+import 'package:musik/screens/playlist_screen/widgets/screenPlaylist.dart';
 
 class playLists extends StatefulWidget {
   const playLists({super.key});
@@ -67,7 +67,7 @@ class _playListsState extends State<playLists> {
           )
         ],
       ),
-      backgroundColor: Color.fromARGB(255, 21, 21, 21),
+      backgroundColor: Colors.black,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -199,7 +199,7 @@ class _playListsState extends State<playLists> {
                                           onPressed: () {
                                             Navigator.pop(context);
                                           },
-                                          child: Text("Cancel",
+                                          child: const Text("Cancel",
                                               style: TextStyle(
                                                   color: Color.fromARGB(
                                                       255, 213, 213, 213)))),
@@ -208,7 +208,7 @@ class _playListsState extends State<playLists> {
                                             playlistbox.deleteAt(index);
                                             Navigator.pop(context);
                                           },
-                                          child: Text("Delete",
+                                          child: const Text("Delete",
                                               style: TextStyle(
                                                   color: Color.fromARGB(
                                                       255, 213, 213, 213))))

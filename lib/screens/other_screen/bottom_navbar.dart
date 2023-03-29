@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:musik/widgets/floating_controller.dart';
-import 'home_page.dart';
-import 'playlists.dart';
+import '../home_screen/home_page.dart';
+import '../playlist_screen/playlists.dart';
 import 'setting_scrren.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 

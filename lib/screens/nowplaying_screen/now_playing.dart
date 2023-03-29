@@ -1,41 +1,33 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:marquee/marquee.dart';
+import 'package:musik/Bloc/now_playing/now_playing_bloc.dart';
 import 'package:musik/model/dbfunctions.dart';
 import 'package:musik/model/mostPlayed.dart';
 import 'package:musik/model/recentlyPlayed.dart';
 import 'package:musik/model/songModel.dart';
-import 'package:musik/screens/splash_screen.dart';
-import 'package:musik/widgets/addTofavourite.dart';
-import 'package:musik/widgets/playlists/addToPlaylist.dart';
+import 'package:musik/screens/favourite_screen/widgets/addTofavourite.dart';
+import 'package:musik/screens/playlist_screen/widgets/addToPlaylist.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class NowPlaying2 extends StatefulWidget {
-  const NowPlaying2({super.key});
+class NowPlaying2 extends StatelessWidget {
+  NowPlaying2({super.key});
 
   @override
-  State<NowPlaying2> createState() => _NowPlaying2State();
-}
-
-class _NowPlaying2State extends State<NowPlaying2> {
   final player = AssetsAudioPlayer.withId('0');
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
-  late List<Songs> dbsongs;
+  late List<Songs> dbsongs = box.values.toList();
   bool isRepeat = false;
   bool isPlaying = false;
+  bool isShuffle = false;
+  final box = SongBox.getInstance();
   List<MostPlayed> allmostplayedsongs = mostplayedsongs.values.toList();
 
   @override
-  void initState() {
-    dbsongs = box.values.toList();
-
-    super.initState();
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -130,63 +122,68 @@ class _NowPlaying2State extends State<NowPlaying2> {
                         SizedBox(
                           height: height * 0.025,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            addToPlaylist(songindex: playing.index),
-                            IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    if (isRepeat) {
-                                      player.setLoopMode(LoopMode.none);
-                                      isRepeat = false;
+                        BlocBuilder<NowPlayingBloc, NowPlayingState>(
+                          builder: (context, state) {
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                addToPlaylist(songindex: playing.index),
+                                IconButton(
+                                    onPressed: () {
+                                      if (isRepeat) {
+                                        player.setLoopMode(LoopMode.none);
+                                        context.read<NowPlayingBloc>().add(
+                                            const NowPlayingEvent.untapped());
+                                        isRepeat = false;
+                                      } else {
+                                        player.setLoopMode(LoopMode.single);
+                                        context.read<NowPlayingBloc>().add(
+                                            const NowPlayingEvent.tapped());
+                                        isRepeat = true;
+                                      }
+                                    },
+                                    icon: Icon(
+                                      Icons.repeat,
+                                      color: state.loop,
+                                    )),
+                                IconButton(
+                                  onPressed: () {
+                                    if (isShuffle) {
+                                      player.toggleShuffle();
+                                      context
+                                          .read<NowPlayingBloc>()
+                                          .add(const NowPlayingEvent.ontaped());
+                                      isShuffle = false;
                                     } else {
-                                      player.setLoopMode(LoopMode.single);
-                                      isRepeat = true;
+                                      player.toggleShuffle();
+                                      context
+                                          .read<NowPlayingBloc>()
+                                          .add(const NowPlayingEvent.untap());
+                                      isShuffle = true;
                                     }
-                                  });
-                                },
-                                icon: isRepeat
-                                    ? const Icon(
-                                        Icons.repeat,
-                                        color: Colors.blue,
-                                        size: 30,
-                                      )
-                                    : const Icon(
-                                        Icons.repeat,
-                                        color: Colors.grey,
-                                        size: 30,
-                                      )),
-                            IconButton(
-                                onPressed: () {
-                                  setState(() {});
-                                  player.toggleShuffle();
-                                },
-                                icon: player.isShuffling.value
-                                    ? const Icon(
-                                        Icons.shuffle,
-                                        color: Colors.blue,
-                                        size: 30,
-                                      )
-                                    : const Icon(
-                                        Icons.shuffle,
-                                        color: Colors.grey,
-                                        size: 30,
-                                      )),
-                            // IconButton(
-                            //     onPressed: () {},
-                            //     icon: Icon(
-                            //       Icons.favorite_border_outlined,
-                            //       color: Colors.white,
-                            //       size: 30,
-                            //     )),
-                            player.builderCurrent(builder: ((context, playing) {
-                              return addToFav(
-                                  index: dbsongs.indexWhere((element) =>
-                                      element.songname ==
-                                      playing.audio.audio.metas.title));
-                            }))
-                          ],
+                                  },
+                                  icon: Icon(
+                                    Icons.shuffle,
+                                    color: state.shuffle,
+                                  ),
+                                ),
+                                // IconButton(
+                                //     onPressed: () {},
+                                //     icon: Icon(
+                                //       Icons.favorite_border_outlined,
+                                //       color: Colors.white,
+                                //       size: 30,
+                                //     )),
+                                player.builderCurrent(
+                                    builder: ((context, playing) {
+                                  return addToFav(
+                                      index: dbsongs.indexWhere((element) =>
+                                          element.songname ==
+                                          playing.audio.audio.metas.title));
+                                }))
+                              ],
+                            );
+                          },
                         ),
                         const SizedBox(
                           height: 10,
@@ -243,7 +240,6 @@ class _NowPlaying2State extends State<NowPlaying2> {
                                         await player.previous();
                                       }
 
-                                      setState(() {});
                                       if (isPlaying == false) {
                                         await player.pause();
                                       }
@@ -305,7 +301,7 @@ class _NowPlaying2State extends State<NowPlaying2> {
                                       iconSize: 40,
                                       onPressed: () async {
                                         await player.next();
-                                        setState(() {});
+
                                         RecentlyPlayed rsongs;
                                         // ignore: non_constant_identifier_names
                                         MostPlayed MPsongs =

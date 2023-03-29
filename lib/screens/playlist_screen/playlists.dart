@@ -1,6 +1,6 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:musik/widgets/playlists/playlistScreen.dart';
+import 'package:musik/screens/playlist_screen/widgets/playlistScreen.dart';
 
 class Playlists extends StatelessWidget {
   const Playlists({super.key});

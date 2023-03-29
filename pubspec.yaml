@@ -40,9 +40,9 @@ dependencies:
   custom_switch: ^0.0.1
   flutter_switch: ^0.3.2
   audio_video_progress_bar: ^0.11.0
-  assets_audio_player: ^3.0.5
+  assets_audio_player: ^3.0.6
   hive: ^2.2.1
-  share_plus: ^6.1.0
+  share_plus: 
   shared_preferences: ^2.0.15
   hive_flutter: ^1.1.0
   on_audio_query: ^2.6.1
@@ -51,6 +51,12 @@ dependencies:
   switcher_button: ^0.0.4
   custom_navigation_bar: ^0.8.2
   bottom_navy_bar: ^6.0.0
+  get: ^4.6.5
+  freezed_annotation: ^2.2.0
+  flutter_bloc: ^8.1.1
+  
+ 
+ 
 
   
 
@@ -66,6 +72,8 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   hive_generator: 
   build_runner: 
+  freezed:
+
   flutter_launcher_icons: ^0.10.0
 
 # For information on the generic Dart part of this file, see the

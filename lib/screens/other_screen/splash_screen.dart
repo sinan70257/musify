@@ -4,7 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:musik/model/dbfunctions.dart';
 import 'package:musik/model/mostPlayed.dart';
 import 'package:musik/model/songModel.dart';
-import 'package:musik/screens/bottom_navbar.dart';
+import 'package:musik/screens/other_screen/bottom_navbar.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class Splash extends StatefulWidget {
